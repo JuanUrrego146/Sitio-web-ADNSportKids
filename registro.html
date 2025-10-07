@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADN Sport Kids - Login / Registro</title>
+  <link rel="stylesheet" href="css/stylesRegistro.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Logo -->
+    <div class="logo">
+      <img src="imagenes/logo.png" alt="ADN Sport Kids Logo" />
+    </div>
+
+    <!-- Formulario de Inicio de Sesión -->
+    <div class="form-container" id="loginForm">
+      <h2>INICIA SESIÓN EN ADN SPORT KIDS</h2>
+
+      <label for="email">CORREO ELECTRÓNICO*</label>
+      <input type="email" id="email" placeholder="INGRESE AQUÍ*" />
+
+      <label for="password">CONTRASEÑA*</label>
+      <input type="password" id="password" placeholder="INGRESE AQUÍ*" />
+
+      <button class="btn" id="loginBtn">INICIAR SESIÓN</button>
+
+      <hr />
+
+      <p>¿ES TU PRIMERA VEZ AQUÍ?</p>
+      <button class="btn-secondary" id="goRegister">REGÍSTRATE</button>
+    </div>
+
+    <!-- Formulario de Registro -->
+    <div class="form-container hidden" id="registerForm">
+      <h2>REGÍSTRATE EN ADN SPORT KIDS</h2>
+
+      <label for="username">NOMBRE DE USUARIO*</label>
+      <input type="text" id="username" placeholder="INGRESE AQUÍ*" />
+
+      <label for="emailRegister">CORREO ELECTRÓNICO*</label>
+      <input type="email" id="emailRegister" placeholder="INGRESE AQUÍ*" />
+
+      <label for="passwordRegister">CONTRASEÑA*</label>
+      <input type="password" id="passwordRegister" placeholder="INGRESE AQUÍ*" />
+
+      <button class="btn" id="createAccount">CREAR CUENTA</button>
+
+      <hr />
+
+      <p>¿YA TIENES CUENTA?</p>
+      <button class="btn-secondary" id="goLogin">INICIA SESIÓN</button>
+    </div>
+
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const goRegister = document.getElementById('goRegister');
+    const goLogin = document.getElementById('goLogin');
+
+    goRegister.addEventListener('click', () => {
+      loginForm.classList.add('hidden');
+      registerForm.classList.remove('hidden');
+    });
+
+    goLogin.addEventListener('click', () => {
+      registerForm.classList.add('hidden');
+      loginForm.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
