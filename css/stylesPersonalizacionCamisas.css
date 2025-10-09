@@ -26,6 +26,22 @@ body {
   overflow-x: auto;
   scroll-behavior: smooth;
   max-width: 500px;
+
+  /* ✅ Centrar verticalmente todo el contenido */
+  align-items: center;
+  justify-content: flex-start;
+
+  /* ✅ Ajuste visual para el scrollbar */
+  padding: 10px 0; /* deja espacio arriba y abajo */
+  scrollbar-gutter: stable both-edges;
+}
+
+/* Cada imagen centrada dentro del contenedor */
+.image-wrapper {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .image-gallery img {
@@ -223,32 +239,35 @@ input:focus {
 /* ✅ Ajuste fino del texto sobre la camisa */
 .camisa-back {
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Imagen ajustada */
 .camisa-back img {
-  display: block;
   width: 300px;
   border-radius: 5px;
+  display: block;
 }
 
 /* Texto superpuesto */
 .overlay-text {
   position: absolute;
-  top: 10%; /* ⬆️ ajustado para centrar sobre los omóplatos */
+  top: 40%; /* centrado vertical */
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%); /* centra vertical y horizontalmente */
   text-align: center;
   color: black;
   font-family: 'Arial Black', sans-serif;
   text-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
   width: 100%;
-  pointer-events: none; /* evita interferir con clics en la imagen */
+  pointer-events: none;
 }
 
 #shirtNumber {
   display: block;
-  font-size: 4.8rem; /* tamaño optimizado */
+  font-size: 4.8rem;
   line-height: 1;
   letter-spacing: -2px;
   margin-bottom: 5px;
@@ -259,5 +278,4 @@ input:focus {
   font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: 3px;
-  margin-top: 10px;
 }
