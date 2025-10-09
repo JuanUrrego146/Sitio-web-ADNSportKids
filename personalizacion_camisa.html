@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personaliza tu Camisa - ADN Sport Kids</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <div class="product-container">
+
+    <!-- Galería de imágenes -->
+    <div class="image-gallery">
+      <div class="image-wrapper">
+        <img src="imagenes/camisa-front.avif" alt="Camisa Colombia frente" />
+      </div>
+      <div class="image-wrapper camisa-back">
+        <img src="imagenes/camisa-back.png" alt="Camisa Colombia reverso" id="camisaBack" />
+        <div class="overlay-text">
+          <span id="shirtNumber">##</span>
+          <span id="shirtName">NOMBRE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de personalización -->
+    <div class="details">
+      <h3>FUTBOL</h3>
+      <h1>CAMISA COLOMBIA</h1>
+      <p class="price">$300.000</p>
+
+      <div class="customization">
+        <h4>AGRÉGALE TU TOQUE AL PRODUCTO</h4>
+
+        <div class="option">
+          <input type="radio" name="custom" id="choosePlayer" checked />
+          <label for="choosePlayer">ELIGE TU JUGADOR</label>
+        </div>
+
+        <div class="option">
+          <input type="radio" name="custom" id="addName" />
+          <label for="addName">AÑADE TU NOMBRE Y NÚMERO</label>
+        </div>
+
+        <!-- Selección de jugador -->
+        <div class="player-list" id="playerList">
+          <label for="playerSelect">Selecciona un jugador</label>
+          <select id="playerSelect">
+            <option value="">-- Selecciona --</option>
+            <option value="Arias 4">Arias 4</option>
+            <option value="Asprilla 22">Asprilla 22</option>
+            <option value="Borré 19">Borré 19</option>
+            <option value="Córdoba 24">Córdoba 24</option>
+          </select>
+        </div>
+
+        <!-- Inputs personalizados -->
+        <div class="custom-inputs hidden" id="customInputs">
+          <div class="inputs-row">
+            <div>
+              <label for="number">NÚMERO</label>
+              <input type="number" id="number" placeholder="###" min="0" max="99" />
+            </div>
+            <div>
+              <label for="name">NOMBRE</label>
+              <input type="text" id="name" placeholder="JUGADOR" maxlength="12" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tallas -->
+      <div class="sizes">
+        <h4>ESCOGE TU TALLA</h4>
+        <div class="size-options">
+          <button class="size-btn">XS</button>
+          <button class="size-btn">S</button>
+          <button class="size-btn">M</button>
+          <button class="size-btn">L</button>
+          <button class="size-btn">XL</button>
+        </div>
+      </div>
+
+      <!-- Botones finales -->
+      <div class="actions">
+        <button class="btn">COMPRAR</button>
+        <button class="btn-secondary">AÑADIR AL CARRO 🛒</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const choosePlayer = document.getElementById('choosePlayer');
+    const addName = document.getElementById('addName');
+    const playerList = document.getElementById('playerList');
+    const customInputs = document.getElementById('customInputs');
+    const playerSelect = document.getElementById('playerSelect');
+    const sizeButtons = document.querySelectorAll('.size-btn');
+
+    // Elementos del texto sobre la camisa
+    const shirtNumber = document.getElementById('shirtNumber');
+    const shirtName = document.getElementById('shirtName');
+
+    // Inputs personalizados
+    const inputNumber = document.getElementById('number');
+    const inputName = document.getElementById('name');
+
+    // Cambio de modo (jugador o nombre propio)
+    choosePlayer.addEventListener('change', () => {
+      playerList.classList.remove('hidden');
+      customInputs.classList.add('hidden');
+      updateFromSelect(); // Actualiza vista
+    });
+
+    addName.addEventListener('change', () => {
+      playerList.classList.add('hidden');
+      customInputs.classList.remove('hidden');
+      shirtNumber.textContent = "##";
+      shirtName.textContent = "NOMBRE";
+    });
+
+    // Actualizar vista al elegir jugador
+    playerSelect.addEventListener('change', updateFromSelect);
+
+    function updateFromSelect() {
+      const value = playerSelect.value;
+      if (!value) {
+        shirtNumber.textContent = "##";
+        shirtName.textContent = "NOMBRE";
+        return;
+      }
+      const [name, num] = value.split(" ");
+      shirtName.textContent = name.toUpperCase();
+      shirtNumber.textContent = num;
+    }
+
+    // Actualizar vista en tiempo real desde inputs
+    inputNumber.addEventListener('input', () => {
+      shirtNumber.textContent = inputNumber.value || "##";
+    });
+
+    inputName.addEventListener('input', () => {
+      shirtName.textContent = inputName.value.toUpperCase() || "NOMBRE";
+    });
+
+    // Selección de talla
+    sizeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        sizeButtons.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
+    });
+  </script>
+
+</body>
+</html>
