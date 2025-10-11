@@ -1,0 +1,20 @@
+:root{
+  --adn-gold:#c9a227; --adn-black:#111; --adn-white:#fff; --adn-muted:#b9b9b9;
+}
+.adn-teams{ padding:18px 0 8px; background:linear-gradient(90deg,#cfa73a 0,#d1a233 20%,#d0a431 40%,#c79a2a 60%,#cfa73a 80%,#d1a233 100%); }
+.adn-teams__wrap{ max-width:1200px; margin:0 auto; padding:0 16px; position:relative; }
+.adn-teams__title{ text-align:center; margin:0 0 10px; color:var(--adn-black); letter-spacing:.18em; text-transform:uppercase; font-weight:800; font-size:16px; text-shadow:0 1px 0 rgba(255,255,255,.6); }
+.adn-teams__controls{ position:absolute; right:16px; top:0; display:flex; gap:8px; }
+.adn-teams__btn{ width:32px; height:32px; border-radius:50%; border:0; background:rgba(0,0,0,.25); color:var(--adn-white); display:grid; place-items:center; cursor:pointer; transition:transform .15s, background .15s; }
+.adn-teams__btn:hover{ transform:translateY(-1px); background:rgba(0,0,0,.35); }
+.adn-teams__viewport{ overflow:hidden; outline:none; background:rgba(0,0,0,.08); border-radius:18px; padding:8px 0; }
+.adn-teams__track{ list-style:none; margin:0; padding:0 12px; display:flex; gap:12px; scroll-behavior:smooth; user-select:none; -webkit-user-drag:none; }
+.adn-team{ --size:70px; width:calc(var(--size) + 10px); flex:0 0 auto; display:grid; gap:6px; justify-items:center; }
+.adn-team__badge{ width:var(--size); height:var(--size); border-radius:14px; overflow:hidden; background:#f4f4f4; display:grid; place-items:center; box-shadow:0 1px 0 rgba(0,0,0,.1), inset 0 0 0 2px rgba(255,255,255,.5); transition:transform .12s, box-shadow .12s, outline-color .12s; outline:3px solid transparent; }
+.adn-team__badge img{ width:88%; height:88%; object-fit:contain; display:block; }
+.adn-team__name{ font-size:12px; line-height:1; color:var(--adn-black); font-weight:700; text-align:center; max-width:90px; }
+.adn-team[aria-checked="true"] .adn-team__badge{ transform:translateY(-2px); outline-color:var(--adn-gold); box-shadow:0 4px 10px rgba(0,0,0,.25), inset 0 0 0 2px rgba(255,255,255,.85); }
+.adn-team__badge[data-fallback="1"]{ background:#222; color:#fff; font-weight:800; letter-spacing:.02em; }
+.adn-team button{ appearance:none; border:0; padding:0; background:transparent; cursor:pointer; }
+@media (max-width:768px){ .adn-teams__title{ font-size:14px; } .adn-team{ --size:64px; } }
+
