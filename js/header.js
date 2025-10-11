@@ -1,11 +1,10 @@
-// js/header.js
 (function () {
   const mountSel = '[data-include="adn-header"]';
-  const url = `partials/header.html?v=${Date.now()}`; // cache-busting en dev
+  const url = `partials/header.html?v=${Date.now()}`; 
 
-  /* ========= TOP (acciones + búsqueda) ========= */
+  
   function ensureUI(root) {
-    // Top wrapper
+
     let top = root.querySelector('.adn-top');
     if (!top) {
       const firstContainer = root.querySelector('.adn-container');
@@ -17,7 +16,7 @@
       }
     }
 
-    // Acciones
+   
     let actions = root.querySelector('.adn-actions');
     if (!actions) {
       actions = document.createElement('div');
@@ -26,7 +25,6 @@
       (root.querySelector('.adn-top .adn-container') || root.querySelector('.adn-container'))?.appendChild(actions);
     }
 
-    // Helper icono
     const iconBtn = (aria, d, stroke=false) => {
       const a = document.createElement('a');
       a.className = 'adn-icon-btn';
@@ -43,12 +41,10 @@
       return a;
     };
 
-    // Favoritos
     if (!root.querySelector('[aria-label="Favoritos"]')) {
       actions.appendChild(iconBtn('Favoritos','M12 21c-.2 0-6.1-4.3-8.5-7.2C1.9 11.9 2.2 9 4.5 7.8c1.6-.9 3.6-.6 4.9.6L12 10.9l2.6-2.5c1.3-1.2 3.3-1.5 5-.6 2.3 1.2 2.6 4.1.5 6-2.4 2.9-8.3 7.2-8.5 7.2z'));
     }
 
-    // Búsqueda
     if (!root.querySelector('.adn-search')) {
       const form = document.createElement('form');
       form.className = 'adn-search'; form.setAttribute('role', 'search');
@@ -70,7 +66,6 @@
     }
   }
 
-  /* ========= NAV centrada ========= */
   function ensureNav(root){
     if (root.querySelector('.adn-nav')) return;
 
@@ -96,7 +91,7 @@
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = href; a.textContent = txt;
-      // Importante: NO poner color inline; lo maneja CSS (.is-active)
+     
       Object.assign(a.style, {
         display:'inline-block', textDecoration:'none', textTransform:'uppercase',
         fontWeight:'700', letterSpacing:'.4px', padding:'4px 0'

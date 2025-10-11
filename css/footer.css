@@ -4,7 +4,7 @@
 .adn-footer a{ color:#fff; text-decoration:none; }
 .adn-footer a:hover{ color:var(--adn-gold); }
 
-/* centra cualquier .adn-container dentro del footer */
+
 .adn-footer .adn-container{ max-width:1200px; margin:0 auto; padding:0 16px; }
 
 .adn-footer__inner{

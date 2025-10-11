@@ -1,4 +1,4 @@
-﻿/* ===== Base ===== */
+﻿
 *{ box-sizing: border-box; }
 html, body{ height:100%; }
 body{
@@ -7,15 +7,12 @@ body{
   color:#111; background:#fff;
 }
 
-/* Contenedor genérico */
 .adn-container{ max-width:1200px; margin:0 auto; }
 
-/* ===== Header superior ===== */
 :root{ --adn-gold:#ffd34f; --adn-black:#111; }
 
 .adn-header{ position:sticky; top:0; z-index:1000; background:#fff; border-bottom:1px solid #eee; }
 
-/* Cinta superior (logo + acciones + búsqueda) */
 .adn-top .adn-container{
   padding:10px 24px;
   display:flex; align-items:center; justify-content:space-between; gap:16px;
@@ -43,40 +40,36 @@ body{
 }
 .adn-search button:hover{ background:rgba(0,0,0,.25); }
 
-/* ===== Barra de navegación (centrada) ===== */
 .adn-nav{ background:#0a0a0a; border-top:1px solid #e9e9e9; }
 .adn-nav .adn-container{
   padding:8px 24px;
-  display:flex; justify-content:center;  /* CENTRADO */
+  display:flex; justify-content:center; 
 }
 
 .adn-nav-list{
   margin:0; padding:0; list-style:none;
   display:flex; gap:22px;
-  align-items:center; justify-content:center; /* CENTRADO */
+  align-items:center; justify-content:center; 
   white-space:nowrap; overflow:auto; scrollbar-width:none;
 }
 .adn-nav-list::-webkit-scrollbar{ display:none; }
 
-/* Default: BLANCO */
 .adn-nav-list a{
   display:inline-block; text-decoration:none; text-transform:uppercase;
   font-weight:700; letter-spacing:.4px; padding:4px 0;
   color:#ffffff; transition:color .15s ease;
 }
 
-/* Hover: gris claro */
 .adn-nav-list a:hover{ color:#d9d9d9; }
 
-/* Activo: AMARILLO */
 .adn-nav-list a.is-active{ color:var(--adn-gold); }
 
-/* Neutraliza clases antiguas si quedaban en el HTML */
+
 .adn-nav-list a.is-strong,
 .adn-nav-list a.is-new{ color:#ffffff; }
 .adn-nav-list a.is-new::after{ display:none; }
 
-/* ===== Responsive ===== */
+
 @media (max-width:768px){
   .adn-brand img{ height:34px; }
   .adn-search input{ width:100px; }

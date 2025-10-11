@@ -1,10 +1,9 @@
-// js/teams-slider.js
 (function () {
   const PLACEHOLDER = '[data-include="adn-teams"]';
   const STORAGE_KEY = 'adn:selectedTeam';
   const PARTIAL_URL = `partials/teams-slider.html?v=${Date.now()}`;
 
-  // Equipos por defecto (ajusta rutas de logos a tu carpeta)
+ 
   const TEAMS = [
     { id:'pereira',   name:'Pereira',     logo:'img/teams/pereira.png' },
     { id:'barcelona', name:'Barcelona',   logo:'img/teams/barcelona.png' },
@@ -20,7 +19,6 @@
     { id:'cali',      name:'Dep. Cali',   logo:'img/teams/cali.png' },
   ];
 
-  // HTML fallback si el parcial no existe
   const FALLBACK_HTML = `
   <section class="adn-teams">
     <div class="adn-teams__wrap">
@@ -57,7 +55,6 @@
     const selectedId = saved || TEAMS[0].id;
     renderItems(track, TEAMS, selectedId);
 
-    // selección
     function select(id, emit=true){
       [...track.children].forEach(li => li.setAttribute('aria-checked', String(li.dataset.id===id)));
       localStorage.setItem(STORAGE_KEY, id);
@@ -69,18 +66,15 @@
       select(li.dataset.id);
     });
 
-    // flechas
     const STEP = () => Math.min(viewport.clientWidth*0.8, 340);
     prevBtn.addEventListener('click', () => viewport.scrollBy({ left:-STEP(), behavior:'smooth' }));
     nextBtn.addEventListener('click', () => viewport.scrollBy({ left:+STEP(), behavior:'smooth' }));
 
-    // teclado
     viewport.addEventListener('keydown', e => {
       if (e.key==='ArrowLeft')  prevBtn.click();
       if (e.key==='ArrowRight') nextBtn.click();
     });
 
-    // drag/touch
     let down=false, startX=0, startL=0;
     const start = x => (down=true, startX=x, startL=viewport.scrollLeft);
     const move  = x => { if (down) viewport.scrollLeft = startL - (x-startX); };
@@ -93,7 +87,6 @@
     viewport.addEventListener('touchmove',  e => move(e.touches[0].clientX),  {passive:true});
     viewport.addEventListener('touchend',   end);
 
-    // selección inicial
     select(selectedId, false);
     console.log('[teams] slider OK');
   }
@@ -102,7 +95,6 @@
     const ph = document.querySelector(PLACEHOLDER);
     if (!ph) { console.warn('[teams] no hay placeholder', PLACEHOLDER); return; }
 
-    // intenta cargar el parcial
     fetch(PARTIAL_URL, { cache:'no-store' })
       .then(r => r.ok ? r.text() : Promise.reject(r.status))
       .then(html => { ph.innerHTML = html; })
@@ -118,7 +110,7 @@
     ? document.addEventListener('DOMContentLoaded', mount)
     : mount();
 
-  // API mínima por si luego quieres reaccionar al cambio
+  
   window.ADNTeams = {
     getSelected: () => localStorage.getItem(STORAGE_KEY),
     onChange: (fn) => {
