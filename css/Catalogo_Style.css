@@ -1,15 +1,66 @@
-.Contenedor_Catalogo{
+.contenedor_catalogo{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-    gap: 20px;
+    gap: 30px;
     justify-items: center;
+    padding: 20px;
+    background-color: white; 
+    
 }
 .Producto{
     display: flex;
     flex-direction: column;
     justify-content: center;
     background-color: black;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* 🔹 efecto sombra */
     width: 100%;
     max-width: 300px;
     padding: 10px;
+}
+.producto-imagen{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+} 
+.producto-imagen img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+
+}
+.producto-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  
+}
+.producto-nombre {
+  color: white;
+  font-size: 1.1em;
+  font-weight: bold; 
+}
+
+.producto-precio {
+  color: orange;
+  font-weight: bold;
+}
+
+.producto-categoria {
+  font-size: 0.9em;
+  color: orange;
+}
+
+
+@media (max-width: 768px) {
+  .producto-imagen img {
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .producto-imagen img {
+    height: 140px;
+  }
 }
