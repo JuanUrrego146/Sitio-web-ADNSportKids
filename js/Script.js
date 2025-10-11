@@ -1,4 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("Página cargada ??");
+    console.log("Pï¿½gina cargada ??");
     alert("Bienvenido a mi proyecto web!");
 });

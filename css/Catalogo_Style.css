@@ -1,0 +1,15 @@
+.Contenedor_Catalogo{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 20px;
+    justify-items: center;
+}
+.Producto{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: black;
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+}
