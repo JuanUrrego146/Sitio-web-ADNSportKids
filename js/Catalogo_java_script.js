@@ -1,20 +1,20 @@
 const productos=[
-    {Categoria:"Hombre", Sub_Categoria:"Uniformes",Nombre:"Uniforme inter de Miami",imagen:"Imagenes/Uni_Inter_Miami_Frontal.png",precio:"$85.0000",color:"No",tallaje:"Ropa",pernumero:"si"},
-    {Categoria:"Hombre", Sub_Categoria:"Uniformes",Nombre:"Uniforme Real Madrid",imagen:"Imagenes/Uni_Real_Madrid.png",precio:"$85.0000",color:"No",tallaje:"Ropa",pernumero:"si"},
-    {Categoria:"Hombre", Sub_Categoria:"Uniformes",Nombre:"Uniforme Colombia",imagen:"Imagenes/camisa-front.avif",precio:"$80.0000",color:"No",tallaje:"Ropa",pernumero:"si"},
-    {Categoria:"Mujer", Sub_Categoria:"Bolsos",Nombre:"Mochila deportiva Gris Nike",imagen:"Imagenes/Mochila_Gris_Nike.png",precio:"$85.0000",color:"No",tallaje:"No",pernumero:"No"},
-    {Categoria:"Mujer", Sub_Categoria:"Bolsos",Nombre:"Nike Morral Gym Amarillo",imagen:"Imagenes/Morral_Gym_Amarillo.png",precio:"$85.0000",color:"No",tallaje:"No",pernumero:"No"},
-    {Categoria:"Hombre", Sub_Categoria:"Bolsos",Nombre:"Maleta deportiva adidas",imagen:"Imagenes/Maleta_Deportiva_Adidas.png",precio:"$85.0000",color:"No",tallaje:"No",pernumero:"No"},
-    {Categoria:"Hombre", Sub_Categoria:"Zapatillas",Nombre:"Torretines Golty Verde",imagen:"Imagenes/Torretines_Golty_Verde.png",precio:"$210.000",color:"No",tallaje:"Calzado",pernumero:"No"},
-    {Categoria:"Mujer", Sub_Categoria:"Zapatillas",Nombre:"Tennis de Running Adistar",imagen:"Imagenes/Tenis_Running_Adistar.png",precio:"$175.000",color:"No",tallaje:"Calzado",pernumero:"No"},
-    {Categoria:"Hombre", Sub_Categoria:"Zapatillas",Nombre:"Torretines Golty Menta",imagen:"Imagenes/Torretines_Golty_Menta.png",precio:"$125.000",color:"No",tallaje:"Calzado",pernumero:"No"},
-    {Categoria:"N/A", Sub_Categoria:"Accesorios",Nombre:"Canillera de Futbol Royal",imagen:"Imagenes/Canillera_Futbol_Royal.png",precio:"$85.000",color:"Si",tallaje:"No",pernumero:"No"},
-    {Categoria:"N/A", Sub_Categoria:"Accesorios",Nombre:"Colchoneta para Yoga",imagen:"Imagenes/Colchoneta_Yoga.png",precio:"$45.000",color:"Si",tallaje:"No",pernumero:"No"},
-    {Categoria:"N/A", Sub_Categoria:"Accesorios",Nombre:"Banda Elastica para Terapia",imagen:"Imagenes/Banda_Elastica.png",precio:"$28.000",color:"Si",tallaje:"No",pernumero:"No"},
-    {Categoria:"N/A", Sub_Categoria:"Balones",Nombre:"Balon Sarlancer Club Adidas",imagen:"Imagenes/Balon_Starlancer_Adidas.png",precio:"$105.000",color:"No",tallaje:"No",pernumero:"No"},
-    {Categoria:"N/A", Sub_Categoria:"Balones",Nombre:"Pelota Tennis Wilson",imagen:"Imagenes/Pelota_Tennis_Wilson.png",precio:"$15.000",color:"No",tallaje:"No",pernumero:"No"},
-    {Categoria:"N/A", Sub_Categoria:"Balones",Nombre:"Balon de Voleiboyl by Golty",imagen:"Imagenes/Balon_Voleibol_Golty.png",precio:"$85.000",color:"No",tallaje:"No",pernumero:"No"},
-]
+    {Categoria:"Hombre", Sub_Categoria:"UNIFORMES",Nombre:"UNIFORME DEL INTER DE MIAMI",imagen:"Imagenes/Uni_Inter_Miami_Frontal.png",precio:"$85.0000",color:"No",tallaje:"Ropa",pernumero:"si"},
+    {Categoria:"Hombre", Sub_Categoria:"UNIFORMES",Nombre:"UNIFORME REAL MADRID",imagen:"Imagenes/Uni_Real_Madrid.png",precio:"$85.0000",color:"No",tallaje:"Ropa",pernumero:"si"},
+    {Categoria:"Hombre", Sub_Categoria:"UNIFORMES",Nombre:"UNIFORME COLOMBIA",imagen:"Imagenes/camisa-front.avif",precio:"$80.0000",color:"No",tallaje:"Ropa",pernumero:"si"},
+    {Categoria:"Mujer", Sub_Categoria:"BOLSOS",Nombre:"MOCHILA DEPORTIVA GRIS NIKE",imagen:"Imagenes/Mochila_Gris_Nike.png",precio:"$85.0000",color:"No",tallaje:"No",pernumero:"No"},
+    {Categoria:"Mujer", Sub_Categoria:"BOLSOS",Nombre:"NIKE MORRAL GYM AMARILLO",imagen:"Imagenes/Morral_Gym_Amarillo.png",precio:"$85.0000",color:"No",tallaje:"No",pernumero:"No"},
+    {Categoria:"Hombre", Sub_Categoria:"BOLSOS",Nombre:"MALETA DEPORTIVA ADIDAS",imagen:"Imagenes/Maleta_Deportiva_Adidas.png",precio:"$85.0000",color:"No",tallaje:"No",pernumero:"No"},
+    {Categoria:"Hombre", Sub_Categoria:"ZAPATILLAS",Nombre:"TORRETINES GOLTY VERDE",imagen:"Imagenes/Torretines_Golty_Verde.png",precio:"$210.000",color:"No",tallaje:"Calzado",pernumero:"No"},
+    {Categoria:"Mujer", Sub_Categoria:"ZAPATILLAS",Nombre:"TENNIS DE RUNING ADISTAR",imagen:"Imagenes/Tenis_Running_Adistar.png",precio:"$175.000",color:"No",tallaje:"Calzado",pernumero:"No"},
+    {Categoria:"Hombre", Sub_Categoria:"ZAPATILLAS",Nombre:"TORRETINES GOLTY MENTA",imagen:"Imagenes/Torretines_Golty_Menta.png",precio:"$125.000",color:"No",tallaje:"Calzado",pernumero:"No"},
+    {Categoria:"Todos", Sub_Categoria:"ACCESORIOS",Nombre:"CANILLERA DE FUTBOL ROYAL",imagen:"Imagenes/Canillera_Futbol_Royal.png",precio:"$85.000",color:"Si",tallaje:"No",pernumero:"No"},
+    {Categoria:"Todos", Sub_Categoria:"ACCESORIOS",Nombre:"COLCHONETA PARA YOGA",imagen:"Imagenes/Colchoneta_Yoga.png",precio:"$45.000",color:"Si",tallaje:"No",pernumero:"No"},
+    {Categoria:"Todos", Sub_Categoria:"ACCESORIOS",Nombre:"BANDA ELASTICA PARA TERAPIA",imagen:"Imagenes/Banda_Elastica.png",precio:"$28.000",color:"Si",tallaje:"No",pernumero:"No"},
+    {Categoria:"Todos", Sub_Categoria:"BALONES",Nombre:"BALON SARLANCER CLUB ADIDAS",imagen:"Imagenes/Balon_Starlancer_Adidas.png",precio:"$105.000",color:"No",tallaje:"No",pernumero:"No"},
+    {Categoria:"Todos", Sub_Categoria:"BALONES",Nombre:"PELOTA TENNIS WILSON",imagen:"Imagenes/Pelota_Tennis_Wilson.png",precio:"$15.000",color:"No",tallaje:"No",pernumero:"No"},
+    {Categoria:"Todos", Sub_Categoria:"BALONES",Nombre:"BALON DE VOLEIBOL BY GOLTY",imagen:"Imagenes/Balon_Voleibol_Golty.png",precio:"$85.000",color:"No",tallaje:"No",pernumero:"No"},
+] 
 const catalogo = document.getElementById("catalogo");
 
 
@@ -48,8 +48,12 @@ function mostrarCatalogo(categoriaSeleccionada = null){
         const precio = document.createElement("p");
         precio.classList.add("producto-precio");
         precio.textContent = p.precio;
+        
+        const categoria=document.createElement("p");
+        categoria.classList.add("producto-categoria");
+        categoria.textContent=p.Categoria;
 
-        divInfo.append(nombre,precio);
+        divInfo.append(precio,nombre,categoria);
         link.append(divImagen,divInfo);
         catalogo.appendChild(link);
 
