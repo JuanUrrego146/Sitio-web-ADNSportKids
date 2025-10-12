@@ -1,4 +1,4 @@
-/* Ajuste global */
+
 * {
   box-sizing: border-box;
 }
@@ -7,19 +7,36 @@ body {
   font-family: Arial, sans-serif;
   background-color: #fff;
   margin: 0;
-  padding: 30px;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Asegura que el contenido principal esté centrado */
+main, .product-container {
+  flex: 1;
   display: flex;
   justify-content: center;
+  align-items: center;
+  padding: 30px;
+  width: 70%;
+  margin: 0 auto; 
 }
 
-.product-container {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 1100px;
-  gap: 40px;
+
+/* Expande header y footer */
+[data-include="adn-header"],
+[data-include="adn-footer"] {
+  width: 100%;
+  flex-shrink: 0; 
+  display: block;
 }
 
-/* 🖼️ Galería */
+
+
+/* Galería */
 .image-gallery {
   display: flex;
   gap: 20px;
@@ -27,12 +44,10 @@ body {
   scroll-behavior: smooth;
   max-width: 500px;
 
-  /* ✅ Centrar verticalmente todo el contenido */
   align-items: center;
   justify-content: flex-start;
 
-  /* ✅ Ajuste visual para el scrollbar */
-  padding: 10px 0; /* deja espacio arriba y abajo */
+  padding: 10px 0; 
   scrollbar-gutter: stable both-edges;
 }
 
@@ -50,7 +65,7 @@ body {
   object-fit: cover;
 }
 
-/* 📄 Panel derecho (detalle del producto) */
+/* Panel derecho (detalle del producto) */
 .details {
   flex: 1;
   min-width: 320px;
@@ -77,7 +92,7 @@ body {
   margin-bottom: 30px;
 }
 
-/* 🎨 Bloque de personalización */
+/* Bloque de personalización */
 .customization {
   background-color: #fff;
   padding: 20px;
@@ -129,7 +144,7 @@ input:focus {
   background-color: #f0f0f0;
 }
 
-/* ✅ Corrección del desbordamiento */
+/* Corrección del desbordamiento */
 .inputs-row {
   display: flex;
   gap: 15px;
@@ -179,10 +194,11 @@ input:focus {
   border-color: #000;
 }
 
-/* 🛒 Botones finales */
+/* Botones finales */
 .actions {
   margin-top: 40px;
   display: flex;
+  justify-content: center;
   gap: 15px;
   flex-wrap: wrap;
 }
@@ -208,7 +224,7 @@ input:focus {
 }
 
 .btn-secondary {
-  background-color: #333;
+  background-color: #000000;
   color: #fff;
 }
 
@@ -216,7 +232,7 @@ input:focus {
   background-color: #555;
 }
 
-/* 🌐 Responsivo */
+/* Responsivo */
 @media (max-width: 768px) {
   body {
     padding: 15px;

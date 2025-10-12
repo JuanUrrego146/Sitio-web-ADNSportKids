@@ -4,10 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Personaliza tu Camisa - ADN Sport Kids</title>
+  
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/footer.css">
+
   <link rel="stylesheet" href="css/stylesPersonalizacionCamisas.css" />
 </head>
 <body>
-
+  <div data-include="adn-header"></div>
+  
   <div class="product-container">
 
     <!-- Galería de imágenes -->
@@ -16,7 +22,7 @@
         <img src="imagenes/camisa-front.avif" alt="Camisa Colombia frente" />  <!-- PRIMERA IMAGEN DEL ARREGLO -->
       </div>
       <div class="image-wrapper camisa-back">
-        <img src="imagenes/camisa-back.png" alt="Camisa Colombia reverso" id="camisaBack" />  <!-- Segunda imagen arreglo, pero por ahora ignora ya que no hay una segunda imagen en el arreglo -->
+        <img src="imagenes/camisa-back.png" alt="Camisa Colombia reverso" id="camisaBack" />  <!-- Segunda imagen arreglo -->
         <div class="overlay-text">
           <span id="shirtNumber">##</span>
           <span id="shirtName">NOMBRE</span>
@@ -84,12 +90,13 @@
 
       <!-- Botones finales -->
       <div class="actions">
-        <button class="btn">COMPRAR</button>
         <button class="btn-secondary">AÑADIR AL CARRO 🛒</button>
       </div>
 
     </div>
   </div>
+
+  <div data-include="adn-footer"></div>
 
   <script>
     const choosePlayer = document.getElementById('choosePlayer');
@@ -155,5 +162,8 @@
   </script>
   
   <script src="js/personalizacion_camisa.js"></script>
+
+  <script src="js/header.js"></script>
+  <script src="js/footer.js"></script>
 </body>
 </html>
