@@ -1,0 +1,121 @@
+/* --- General Layout --- */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 500px;
+}
+
+/* --- Logo --- */
+.logo {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.logo img {
+  width: 120px;
+}
+
+/* --- Forms --- */
+.form-container {
+  transition: all 0.4s ease;
+}
+
+.hidden {
+  display: none;
+}
+
+h2 {
+  font-size: 1.2rem;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+  margin-bottom: 25px;
+  text-align: left; /* 🔥 Ahora alineado a la izquierda */
+}
+
+label {
+  display: block;
+  text-align: left;
+  margin: 10px 0 5px 0;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+input {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 1px solid #000;
+  outline: none;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  color: #000;
+  background-color: #fff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+input::placeholder {
+  color: #ccc;
+  letter-spacing: 1px;
+}
+
+input:hover,
+input:focus {
+  background-color: #f0f0f0;
+  border-color: #222;
+}
+
+/* --- Buttons --- */
+.btn, .btn-secondary {
+  width: 60%;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 0;
+  margin: 10px auto;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: block;
+}
+
+.btn {
+  background-color: #000;
+  color: #fff;
+}
+
+.btn:hover {
+  background-color: #333;
+}
+
+.btn-secondary {
+  background-color: #333;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #555;
+}
+
+/* --- Divider & Paragraph --- */
+hr {
+  border: none;
+  border-top: 1px solid #000;
+  margin: 20px 0;
+}
+
+p {
+  margin: 10px 0;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-align: center;
+}
