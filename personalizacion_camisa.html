@@ -24,8 +24,8 @@
       <div class="image-wrapper camisa-back">
         <img src="imagenes/camisa-back.png" alt="Camisa Colombia reverso" id="camisaBack" />  <!-- Segunda imagen arreglo -->
         <div class="overlay-text">
-          <span id="shirtNumber">##</span>
           <span id="shirtName">NOMBRE</span>
+          <span id="shirtNumber">##</span>
         </div>
       </div>
     </div>
@@ -97,6 +97,15 @@
   </div>
 
   <div data-include="adn-footer"></div>
+
+  <!-- Panel de confirmación de producto agregado -->
+  <div id="cartConfirmation" class="cart-confirmation hidden">
+    <p class="cart-title">PRODUCTO AGREGADO AL CARRITO</p>
+    <div class="cart-content">
+      <p class="cart-name" id="cartProductName">CAMISA COLOMBIA</p>
+      <p class="cart-price" id="cartProductPrice">$300.000</p>
+    </div>
+  </div>
 
   <script>
     const choosePlayer = document.getElementById('choosePlayer');

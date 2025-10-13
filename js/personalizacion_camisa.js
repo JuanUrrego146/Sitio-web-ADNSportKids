@@ -11,6 +11,11 @@ const categoriaText = document.querySelector(".details h3");
 const nombreText = document.querySelector(".details h1");
 const precioText = document.querySelector(".price");
 
+// 🎯 Panel de confirmación de carrito
+const addToCartBtn = document.querySelector('.btn-secondary');
+const cartPanel = document.getElementById('cartConfirmation');
+const cartName = document.getElementById('cartProductName');
+const cartPrice = document.getElementById('cartProductPrice');
 
 if (nombre && precio && imagen && subcategoria) {
   // Imagen frontal
@@ -32,3 +37,24 @@ if (nombre && precio && imagen && subcategoria) {
 } else {
   console.warn("⚠️ No se recibieron datos válidos del catálogo.");
 }
+
+addToCartBtn.addEventListener('click', () => {
+  // Obtiene los valores actuales del producto
+  const productName = document.querySelector('.details h1').textContent.trim();
+  const productPrice = document.querySelector('.price').textContent.trim();
+
+  // Asigna al panel
+  cartName.textContent = productName;
+  cartPrice.textContent = productPrice;
+
+  // Muestra el panel con animación
+  cartPanel.classList.remove('hidden');
+  cartPanel.classList.add('show');
+
+  // Oculta después de 4 segundos
+  setTimeout(() => {
+    cartPanel.classList.remove('show');
+    cartPanel.classList.add('hidden');
+  }, 4000);
+});
+
