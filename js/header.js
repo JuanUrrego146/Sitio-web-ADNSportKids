@@ -87,25 +87,25 @@
       whiteSpace:'nowrap', overflow:'auto'
     });
 
-    const add = (txt, href) => {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = href; a.textContent = txt;
-     
-      Object.assign(a.style, {
-        display:'inline-block', textDecoration:'none', textTransform:'uppercase',
-        fontWeight:'700', letterSpacing:'.4px', padding:'4px 0'
-      });
-      li.appendChild(a); ul.appendChild(li);
-    };
+    const add = (txt, hash) => {
+  const li = document.createElement('li');
+  const a = document.createElement('a');
+  // siempre enviar al catálogo con hash
+  a.href = `catalogo.html#${hash}`;
+  a.textContent = txt;
+  Object.assign(a.style, {
+    display:'inline-block', textDecoration:'none', textTransform:'uppercase',
+    fontWeight:'700', letterSpacing:'.4px', padding:'4px 0'
+  });
+  li.appendChild(a); ul.appendChild(li);
+};
 
-    add('Hombre','#hombre');
-    add('Mujer','#mujer');
-    add('Bolsas','#bolsas');
-    add('Accesorios','#accesorios');
-    add('Balones','#balones');
-    add('Uniformes','#uniformes');
-    add('Zapatillas','#zapatillas');
+    add('Hombre','hombre');
+add('Mujer','mujer');
+add('Accesorios','accesorios');
+add('Balones','balones');
+add('Uniformes','uniformes');
+add('Zapatillas','zapatillas');
 
     wrap.appendChild(ul); nav.appendChild(wrap);
 
@@ -114,33 +114,35 @@
     (header || root).insertBefore(nav, top.nextSibling);
   }
 
-  /* ========= Activo (amarillo) ========= */
+  
   function wireActive(root){
-    const links = Array.from(root.querySelectorAll('.adn-nav a'));
-    if (!links.length) return;
+  const links = Array.from(root.querySelectorAll('.adn-nav a'));
+  if (!links.length) return;
 
-    const setActive = (hash) => {
-      links.forEach(a => {
-        const is = a.getAttribute('href') === hash;
-        a.classList.toggle('is-active', is);
-        // Limpia cualquier inline viejo y forza el estado correcto
-        a.style.color = is ? '' : ''; // deja que el CSS mande (blanco/amarillo)
-      });
-    };
+  const keyFromHash = () => (location.hash || '')
+    .replace('#','').toLowerCase();
 
-    // click
+  const setActiveByKey = (key) => {
     links.forEach(a => {
-      a.addEventListener('click', () => setActive(a.getAttribute('href')));
+      const aKey = (a.hash || '').replace('#','').toLowerCase();
+      a.classList.toggle('is-active', key && aKey === key);
     });
+  };
 
-    // cambios de hash
-    window.addEventListener('hashchange', () => setActive(location.hash));
+  // 🔸 Marca activo de una vez al hacer click (optimista, antes de navegar)
+  links.forEach(a => {
+    a.addEventListener('click', () => {
+      const key = (a.hash || '').replace('#','').toLowerCase();
+      setActiveByKey(key);
+    });
+  });
 
-    // estado inicial
-    setActive(location.hash || '');
-  }
+  // 🔸 Al cargar la página y cuando cambie el hash
+  setActiveByKey(keyFromHash());
+  window.addEventListener('hashchange', () => setActiveByKey(keyFromHash()));
+}
 
-  /* ========= bootstrap ========= */
+
   function inject() {
     const mount = document.querySelector(mountSel);
     if (!mount) return;
@@ -154,7 +156,7 @@
         wireActive(mount);
       })
       .catch(() => {
-        // fallback mínimo
+    
         mount.innerHTML = `
           <header class="adn-header">
             <div class="adn-top">
