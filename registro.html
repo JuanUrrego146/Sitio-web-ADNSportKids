@@ -9,12 +9,11 @@
 <body>
   <div class="container">
 
-   
     <div class="logo">
       <img src="imagenes/logo.png" alt="ADN Sport Kids Logo" />
     </div>
 
-   
+    <!-- FORMULARIO DE LOGIN -->
     <div class="form-container" id="loginForm">
       <h2>INICIA SESIÓN EN ADN SPORT KIDS</h2>
 
@@ -32,7 +31,7 @@
       <button class="btn-secondary" id="goRegister">REGÍSTRATE</button>
     </div>
 
-    
+    <!-- FORMULARIO DE REGISTRO -->
     <div class="form-container hidden" id="registerForm">
       <h2>REGÍSTRATE EN ADN SPORT KIDS</h2>
 
@@ -56,11 +55,15 @@
   </div>
 
   <script>
+    // Referencias a los formularios
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
     const goRegister = document.getElementById('goRegister');
     const goLogin = document.getElementById('goLogin');
+    const loginBtn = document.getElementById('loginBtn');
+    const createAccount = document.getElementById('createAccount');
 
+    // Cambiar entre login y registro
     goRegister.addEventListener('click', () => {
       loginForm.classList.add('hidden');
       registerForm.classList.remove('hidden');
@@ -69,6 +72,16 @@
     goLogin.addEventListener('click', () => {
       registerForm.classList.add('hidden');
       loginForm.classList.remove('hidden');
+    });
+
+    // Redirección al presionar "Iniciar sesión"
+    loginBtn.addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+
+    // Redirección al presionar "Crear cuenta"
+    createAccount.addEventListener('click', () => {
+      window.location.href = 'index.html';
     });
   </script>
 </body>
