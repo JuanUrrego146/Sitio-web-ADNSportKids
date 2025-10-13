@@ -11,18 +11,18 @@ const categoriaText = document.querySelector(".details h3");
 const nombreText = document.querySelector(".details h1");
 const precioText = document.querySelector(".price");
 
-// 🎯 Panel de confirmación de carrito
+
 const addToCartBtn = document.querySelector('.btn-secondary');
 const cartPanel = document.getElementById('cartConfirmation');
 const cartName = document.getElementById('cartProductName');
 const cartPrice = document.getElementById('cartProductPrice');
 
 if (nombre && precio && imagen && subcategoria) {
-  // Imagen frontal
+
   imageFront.src = imagen;
   imageFront.alt = nombre;
 
-  // Imagen trasera si existe
+  
   if (imagen2 && imagen2.trim() !== "") {
     imageBack.src = imagen2;
     imageBack.alt = `${nombre} reverso`;
@@ -30,7 +30,7 @@ if (nombre && precio && imagen && subcategoria) {
     imageBack.parentElement.style.display = "none";
   }
 
-  // Datos del producto
+
   categoriaText.textContent = subcategoria.toUpperCase();
   nombreText.textContent = nombre.toUpperCase();
   precioText.textContent = precio;
@@ -39,19 +39,17 @@ if (nombre && precio && imagen && subcategoria) {
 }
 
 addToCartBtn.addEventListener('click', () => {
-  // Obtiene los valores actuales del producto
+  
   const productName = document.querySelector('.details h1').textContent.trim();
   const productPrice = document.querySelector('.price').textContent.trim();
 
-  // Asigna al panel
   cartName.textContent = productName;
   cartPrice.textContent = productPrice;
 
-  // Muestra el panel con animación
+
   cartPanel.classList.remove('hidden');
   cartPanel.classList.add('show');
 
-  // Oculta después de 4 segundos
   setTimeout(() => {
     cartPanel.classList.remove('show');
     cartPanel.classList.add('hidden');

@@ -2,9 +2,8 @@
   const mountSel = '[data-include="adn-header"]';
   const url = `partials/header.html?v=${Date.now()}`; 
 
-  
   function ensureUI(root) {
-
+    
     let top = root.querySelector('.adn-top');
     if (!top) {
       const firstContainer = root.querySelector('.adn-container');
@@ -16,7 +15,7 @@
       }
     }
 
-   
+ 
     let actions = root.querySelector('.adn-actions');
     if (!actions) {
       actions = document.createElement('div');
@@ -30,7 +29,7 @@
       a.className = 'adn-icon-btn';
       a.href = `#${aria.toLowerCase()}`;
       a.setAttribute('aria-label', aria);
-      Object.assign(a.style, {display:'grid',placeItems:'center',width:'32px',height:'32px',textDecoration:'none'}); // <= sin color inline
+      Object.assign(a.style, {display:'grid',placeItems:'center',width:'32px',height:'32px',textDecoration:'none'});
       const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
       svg.setAttribute('viewBox','0 0 24 24'); svg.setAttribute('width','22'); svg.setAttribute('height','22');
       const p = document.createElementNS('http://www.w3.org/2000/svg','path');
@@ -45,6 +44,7 @@
       actions.appendChild(iconBtn('Favoritos','M12 21c-.2 0-6.1-4.3-8.5-7.2C1.9 11.9 2.2 9 4.5 7.8c1.6-.9 3.6-.6 4.9.6L12 10.9l2.6-2.5c1.3-1.2 3.3-1.5 5-.6 2.3 1.2 2.6 4.1.5 6-2.4 2.9-8.3 7.2-8.5 7.2z'));
     }
 
+    
     if (!root.querySelector('.adn-search')) {
       const form = document.createElement('form');
       form.className = 'adn-search'; form.setAttribute('role', 'search');
@@ -61,9 +61,27 @@
       sp.setAttribute('fill','none'); sp.setAttribute('stroke','#000'); sp.setAttribute('stroke-width','2'); sp.setAttribute('stroke-linecap','round');
       s.appendChild(sp); btn.appendChild(s);
       form.appendChild(input); form.appendChild(btn);
-      form.addEventListener('submit', e => e.preventDefault());
       actions.appendChild(form);
+
+     
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const q = (input.value || '').trim();
+        const base = location.pathname.endsWith('catalogo.html') ? '' : 'catalogo.html';
+        if (!q) location.href = `${base}`;
+        else location.href = `${base}#q=${encodeURIComponent(q)}`;
+      });
+
+   
+      if (/#.*\bq=/.test(location.hash)) {
+        const parts = location.hash.slice(1).split('&');
+        for (const p of parts) if (p.startsWith('q=')) input.value = decodeURIComponent(p.slice(2));
+      }
     }
+
+ 
+    const account = root.querySelector('.adn-icon-btn[aria-label="Cuenta"]');
+    if (account) account.href = 'registro.html';
   }
 
   function ensureNav(root){
@@ -88,24 +106,23 @@
     });
 
     const add = (txt, hash) => {
-  const li = document.createElement('li');
-  const a = document.createElement('a');
-  // siempre enviar al catálogo con hash
-  a.href = `catalogo.html#${hash}`;
-  a.textContent = txt;
-  Object.assign(a.style, {
-    display:'inline-block', textDecoration:'none', textTransform:'uppercase',
-    fontWeight:'700', letterSpacing:'.4px', padding:'4px 0'
-  });
-  li.appendChild(a); ul.appendChild(li);
-};
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `catalogo.html#${hash}`;
+      a.textContent = txt;
+      Object.assign(a.style, {
+        display:'inline-block', textDecoration:'none', textTransform:'uppercase',
+        fontWeight:'700', letterSpacing:'.4px', padding:'4px 0'
+      });
+      li.appendChild(a); ul.appendChild(li);
+    };
 
     add('Hombre','hombre');
-add('Mujer','mujer');
-add('Accesorios','accesorios');
-add('Balones','balones');
-add('Uniformes','uniformes');
-add('Zapatillas','zapatillas');
+    add('Mujer','mujer');
+    add('Accesorios','accesorios');
+    add('Balones','balones');
+    add('Uniformes','uniformes');
+    add('Zapatillas','zapatillas');
 
     wrap.appendChild(ul); nav.appendChild(wrap);
 
@@ -114,34 +131,32 @@ add('Zapatillas','zapatillas');
     (header || root).insertBefore(nav, top.nextSibling);
   }
 
-  
+ 
   function wireActive(root){
-  const links = Array.from(root.querySelectorAll('.adn-nav a'));
-  if (!links.length) return;
+    const links = Array.from(root.querySelectorAll('.adn-nav a'));
+    if (!links.length) return;
 
-  const keyFromHash = () => (location.hash || '')
-    .replace('#','').toLowerCase();
+    const getKey = () => {
+      const h = (location.hash || '').toLowerCase();
+      if (h.includes('q=')) return ''; 
+      const first = h.replace(/^#/,'').split('&')[0];
+      return first || '';
+    };
 
-  const setActiveByKey = (key) => {
+    const setActiveByKey = (key) => {
+      links.forEach(a => {
+        const aKey = (a.hash || '').replace('#','').toLowerCase();
+        a.classList.toggle('is-active', key && aKey === key);
+      });
+    };
+
     links.forEach(a => {
-      const aKey = (a.hash || '').replace('#','').toLowerCase();
-      a.classList.toggle('is-active', key && aKey === key);
+      a.addEventListener('click', () => setActiveByKey((a.hash || '').replace('#','').toLowerCase()));
     });
-  };
 
-  // 🔸 Marca activo de una vez al hacer click (optimista, antes de navegar)
-  links.forEach(a => {
-    a.addEventListener('click', () => {
-      const key = (a.hash || '').replace('#','').toLowerCase();
-      setActiveByKey(key);
-    });
-  });
-
-  // 🔸 Al cargar la página y cuando cambie el hash
-  setActiveByKey(keyFromHash());
-  window.addEventListener('hashchange', () => setActiveByKey(keyFromHash()));
-}
-
+    setActiveByKey(getKey());
+    window.addEventListener('hashchange', () => setActiveByKey(getKey()));
+  }
 
   function inject() {
     const mount = document.querySelector(mountSel);
@@ -156,7 +171,7 @@ add('Zapatillas','zapatillas');
         wireActive(mount);
       })
       .catch(() => {
-    
+        // fallback mínimo
         mount.innerHTML = `
           <header class="adn-header">
             <div class="adn-top">
@@ -181,6 +196,3 @@ add('Zapatillas','zapatillas');
     ? document.addEventListener('DOMContentLoaded', inject)
     : inject();
 })();
-
-
-

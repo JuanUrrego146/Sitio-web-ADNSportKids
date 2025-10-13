@@ -17,10 +17,39 @@ const productos = [
   {Categoria:"N/A", Sub_Categoria:"Balones",Nombre:"Balon de Voleiboyl by Golty",imagen:"Imagenes/Balon_Voleibol_Golty.png",precio:"$85.000",color:"No",tallaje:"No",pernumero:"No"},
 ];
 
-// === DOM ===
+
 const catalogo = document.getElementById("catalogo");
 
-// Render del grid
+
+const norm = (s='') => s.toString().toLowerCase()
+  .normalize('NFD').replace(/\p{Diacritic}/gu,'');
+
+
+function readHashParams(){
+  const raw = (location.hash || '').replace(/^#/, '');
+  const parts = raw ? raw.split('&') : [];
+  const out = {};
+  const setSub = (k) => out.sub = k[0].toUpperCase()+k.slice(1);
+
+  for (const p of parts){
+    if (!p) continue;
+    if (p === 'hombre') out.categoria = 'Hombre';
+    else if (p === 'mujer') out.categoria = 'Mujer';
+    else if (['accesorios','balones','uniformes','zapatillas','bolsos'].includes(p)) setSub(p);
+    else if (p.startsWith('q=')) out.q = decodeURIComponent(p.slice(2));
+  }
+
+  
+  if (!parts.length && raw){
+    if (raw === 'hombre') out.categoria = 'Hombre';
+    else if (raw === 'mujer') out.categoria = 'Mujer';
+    else if (['accesorios','balones','uniformes','zapatillas','bolsos'].includes(raw)) setSub(raw);
+    else if (raw.startsWith('q=')) out.q = decodeURIComponent(raw.slice(2));
+  }
+  return out;
+}
+
+
 function render(items){
   catalogo.innerHTML = "";
   if (!items.length){
@@ -31,12 +60,12 @@ function render(items){
   items.forEach(p => {
     const link = document.createElement("a");
 
-    // 🔸 Si es UNIFORME => va a personalizacion_camisa.html (con imagen2 opcional)
+    
     if (p.Sub_Categoria === "Uniformes") {
-      const img2 = p.imagen2 || "Imagenes/camisa-back.png"; // fallback si no viene
+      const img2 = p.imagen2 || "Imagenes/camisa-back.png";
       link.href = `personalizacion_camisa.html?nombre=${encodeURIComponent(p.Nombre)}&precio=${encodeURIComponent(p.precio)}&imagen=${encodeURIComponent(p.imagen)}&imagen2=${encodeURIComponent(img2)}&subcategoria=${encodeURIComponent(p.Sub_Categoria)}`;
     } else {
-      // 🔸 resto de productos => flujo normal
+      
       link.href = `personalizacion.html?nombre=${encodeURIComponent(p.Nombre)}&precio=${encodeURIComponent(p.precio)}&imagen=${encodeURIComponent(p.imagen)}&color=${encodeURIComponent(p.color)}&tallaje=${encodeURIComponent(p.tallaje)}&pernumero=${encodeURIComponent(p.pernumero)}&subcategoria=${encodeURIComponent(p.Sub_Categoria)}`;
     }
 
@@ -65,39 +94,32 @@ function render(items){
   });
 }
 
-// Hash -> filtro
-function parseHash(){
-  const h = (location.hash || "").replace("#","").trim().toLowerCase();
-  if (!h) return null;
 
-  if (h === "hombre") return { tipo:"categoria", valor:"Hombre" };
-  if (h === "mujer")  return { tipo:"categoria", valor:"Mujer" };
-
-  const mapaSub = {
-    accesorios: "Accesorios",
-    balones: "Balones",
-    uniformes: "Uniformes",
-    zapatillas: "Zapatillas",
-    bolsos: "Bolsos"
-  };
-  if (mapaSub[h]) return { tipo:"sub", valor: mapaSub[h] };
-  return null;
-}
-
-// Aplica filtro del hash (o muestra todo)
 function aplicarFiltro(){
-  const f = parseHash();
-  let items = productos;
-  if (f){
-    items = f.tipo === "categoria"
-      ? productos.filter(p => p.Categoria === f.valor)
-      : productos.filter(p => p.Sub_Categoria === f.valor);
+  const params = readHashParams();
+  let items = productos.slice();
+
+  if (params.categoria){
+    items = items.filter(p => p.Categoria === params.categoria);
   }
+  if (params.sub){
+    items = items.filter(p => p.Sub_Categoria === params.sub);
+  }
+  if (params.q && params.q.trim()){
+    const terms = norm(params.q).split(/\s+/).filter(Boolean); // todas las palabras (AND)
+    items = items.filter(p => {
+      const haystack = norm([p.Nombre, p.Categoria, p.Sub_Categoria].join(' '));
+      return terms.every(t => haystack.includes(t));
+    });
+  }
+
   render(items);
 }
 
+// Eventos
 window.addEventListener('hashchange', aplicarFiltro);
 aplicarFiltro();
+
 
 
 
