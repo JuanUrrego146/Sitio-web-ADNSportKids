@@ -1,8 +1,8 @@
 // === DATA ===
 const productos = [
-  {Categoria:"Hombre", Sub_Categoria:"Uniformes",Nombre:"Uniforme inter de Miami",imagen:"Imagenes/Uni_Inter_Miami_Frontal.png",precio:"$85.0000",color:"No",tallaje:"Ropa",pernumero:"si"},
-  {Categoria:"Hombre", Sub_Categoria:"Uniformes",Nombre:"Uniforme Real Madrid",imagen:"Imagenes/Uni_Real_Madrid.png",precio:"$85.0000",color:"No",tallaje:"Ropa",pernumero:"si"},
-  {Categoria:"Hombre", Sub_Categoria:"Uniformes",Nombre:"Uniforme Colombia",imagen:"Imagenes/camisa-front.avif",precio:"$80.0000",color:"No",tallaje:"Ropa",pernumero:"si"},
+  {Categoria:"Hombre", Sub_Categoria:"Uniformes",Nombre:"Uniforme inter de Miami",imagen:"Imagenes/Uni_Inter_Miami_Frontal.png",precio:"$85.0000",color:"No",tallaje:"Ropa",pernumero:"si", imagen2:"Imagenes/Uni_Inter_Miami_Espalda.avif"},
+  {Categoria:"Hombre", Sub_Categoria:"Uniformes",Nombre:"Uniforme Real Madrid",imagen:"Imagenes/Uni_Real_Madrid.png",precio:"$85.0000",color:"No",tallaje:"Ropa",pernumero:"si", imagen2:"Imagenes/Uni_Real_Madrid_Espalda.avif"},
+  {Categoria:"Hombre", Sub_Categoria:"Uniformes",Nombre:"Uniforme Colombia",imagen:"Imagenes/camisa-front.avif",precio:"$80.0000",color:"No",tallaje:"Ropa",pernumero:"si", imagen2:"Imagenes/camisa-back.png"},
   {Categoria:"Mujer", Sub_Categoria:"Bolsos",Nombre:"Mochila deportiva Gris Nike",imagen:"Imagenes/Mochila_Gris_Nike.png",precio:"$85.0000",color:"No",tallaje:"No",pernumero:"No"},
   {Categoria:"Mujer", Sub_Categoria:"Bolsos",Nombre:"Nike Morral Gym Amarillo",imagen:"Imagenes/Morral_Gym_Amarillo.png",precio:"$85.0000",color:"No",tallaje:"No",pernumero:"No"},
   {Categoria:"Hombre", Sub_Categoria:"Bolsos",Nombre:"Maleta deportiva adidas",imagen:"Imagenes/Maleta_Deportiva_Adidas.png",precio:"$85.0000",color:"No",tallaje:"No",pernumero:"No"},
@@ -30,7 +30,16 @@ function render(items){
 
   items.forEach(p => {
     const link = document.createElement("a");
-    link.href = `personalizacion.html?nombre=${encodeURIComponent(p.Nombre)}&precio=${encodeURIComponent(p.precio)}&imagen=${encodeURIComponent(p.imagen)}&color=${encodeURIComponent(p.color)}&tallaje=${encodeURIComponent(p.tallaje)}&pernumero=${encodeURIComponent(p.pernumero)}&subcategoria=${encodeURIComponent(p.Sub_Categoria)}`;
+
+    // 🔸 Si es UNIFORME => va a personalizacion_camisa.html (con imagen2 opcional)
+    if (p.Sub_Categoria === "Uniformes") {
+      const img2 = p.imagen2 || "Imagenes/camisa-back.png"; // fallback si no viene
+      link.href = `personalizacion_camisa.html?nombre=${encodeURIComponent(p.Nombre)}&precio=${encodeURIComponent(p.precio)}&imagen=${encodeURIComponent(p.imagen)}&imagen2=${encodeURIComponent(img2)}&subcategoria=${encodeURIComponent(p.Sub_Categoria)}`;
+    } else {
+      // 🔸 resto de productos => flujo normal
+      link.href = `personalizacion.html?nombre=${encodeURIComponent(p.Nombre)}&precio=${encodeURIComponent(p.precio)}&imagen=${encodeURIComponent(p.imagen)}&color=${encodeURIComponent(p.color)}&tallaje=${encodeURIComponent(p.tallaje)}&pernumero=${encodeURIComponent(p.pernumero)}&subcategoria=${encodeURIComponent(p.Sub_Categoria)}`;
+    }
+
     link.classList.add("Producto");
     link.style.textDecoration = "none";
 
@@ -56,48 +65,38 @@ function render(items){
   });
 }
 
-// Normalizador de hash -> filtro
+// Hash -> filtro
 function parseHash(){
   const h = (location.hash || "").replace("#","").trim().toLowerCase();
   if (!h) return null;
 
-  // Por género (Categoria)
-  if (h === "hombre")   return { tipo:"categoria", valor:"Hombre" };
-  if (h === "mujer")    return { tipo:"categoria", valor:"Mujer" };
+  if (h === "hombre") return { tipo:"categoria", valor:"Hombre" };
+  if (h === "mujer")  return { tipo:"categoria", valor:"Mujer" };
 
-  // Por subcategoría
   const mapaSub = {
     accesorios: "Accesorios",
     balones: "Balones",
     uniformes: "Uniformes",
     zapatillas: "Zapatillas",
-    bolsos: "Bolsos" // por si agregas el menú de Bolsos
+    bolsos: "Bolsos"
   };
   if (mapaSub[h]) return { tipo:"sub", valor: mapaSub[h] };
-
-  // fallback
   return null;
 }
 
-// Aplica el filtro del hash (o muestra todo)
+// Aplica filtro del hash (o muestra todo)
 function aplicarFiltro(){
   const f = parseHash();
   let items = productos;
-
   if (f){
-    if (f.tipo === "categoria"){
-      items = productos.filter(p => p.Categoria === f.valor); // << Fix mayúscula
-    } else if (f.tipo === "sub"){
-      items = productos.filter(p => p.Sub_Categoria === f.valor);
-    }
+    items = f.tipo === "categoria"
+      ? productos.filter(p => p.Categoria === f.valor)
+      : productos.filter(p => p.Sub_Categoria === f.valor);
   }
   render(items);
 }
 
-// Eventos
 window.addEventListener('hashchange', aplicarFiltro);
-
-// Primera carga
 aplicarFiltro();
 
 
