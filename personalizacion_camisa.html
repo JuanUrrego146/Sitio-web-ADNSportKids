@@ -4,31 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Personaliza tu Camisa - ADN Sport Kids</title>
+  
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/footer.css">
+
   <link rel="stylesheet" href="css/stylesPersonalizacionCamisas.css" />
 </head>
 <body>
-
+  <div data-include="adn-header"></div>
+  
   <div class="product-container">
 
     <!-- Galería de imágenes -->
     <div class="image-gallery">
       <div class="image-wrapper">
-        <img src="imagenes/camisa-front.avif" alt="Camisa Colombia frente" />
+        <img src="imagenes/camisa-front.avif" alt="Camisa Colombia frente" />  <!-- PRIMERA IMAGEN DEL ARREGLO -->
       </div>
       <div class="image-wrapper camisa-back">
-        <img src="imagenes/camisa-back.png" alt="Camisa Colombia reverso" id="camisaBack" />
+        <img src="imagenes/camisa-back.png" alt="Camisa Colombia reverso" id="camisaBack" />  <!-- Segunda imagen arreglo -->
         <div class="overlay-text">
-          <span id="shirtNumber">##</span>
           <span id="shirtName">NOMBRE</span>
+          <span id="shirtNumber">##</span>
         </div>
       </div>
     </div>
 
     <!-- Sección de personalización -->
     <div class="details">
-      <h3>FUTBOL</h3>
-      <h1>CAMISA COLOMBIA</h1>
-      <p class="price">$300.000</p>
+      <h3>FUTBOL</h3>  <!-- Sub-categoria arreglo -->
+      <h1>CAMISA COLOMBIA</h1>  <!-- Nombre -->
+      <p class="price">$300.000</p>  <!-- Precio -->
 
       <div class="customization">
         <h4>AGRÉGALE TU TOQUE AL PRODUCTO</h4>
@@ -84,10 +90,20 @@
 
       <!-- Botones finales -->
       <div class="actions">
-        <button class="btn">COMPRAR</button>
         <button class="btn-secondary">AÑADIR AL CARRO 🛒</button>
       </div>
 
+    </div>
+  </div>
+
+  <div data-include="adn-footer"></div>
+
+  <!-- Panel de confirmación de producto agregado -->
+  <div id="cartConfirmation" class="cart-confirmation hidden">
+    <p class="cart-title">PRODUCTO AGREGADO AL CARRITO</p>
+    <div class="cart-content">
+      <p class="cart-name" id="cartProductName">CAMISA COLOMBIA</p>
+      <p class="cart-price" id="cartProductPrice">$300.000</p>
     </div>
   </div>
 
@@ -153,6 +169,10 @@
       });
     });
   </script>
+  
+  <script src="js/personalizacion_camisa.js"></script>
 
+  <script src="js/header.js"></script>
+  <script src="js/footer.js"></script>
 </body>
 </html>
