@@ -17,13 +17,50 @@ const productos = [
   {Categoria:"N/A", Sub_Categoria:"Balones",Nombre:"Balon de Voleiboyl by Golty",imagen:"Imagenes/Balon_Voleibol_Golty.png",precio:"$85.000",color:"No",tallaje:"No",pernumero:"No"},
 ];
 
-
 const catalogo = document.getElementById("catalogo");
 
 
-const norm = (s='') => s.toString().toLowerCase()
-  .normalize('NFD').replace(/\p{Diacritic}/gu,'');
+function mostrarCatalogo(categoriaSeleccionada = null){
+    catalogo.innerHTML =""; //Limpia el html
 
+    const productosFiltrados= categoriaSeleccionada && categoriaSeleccionada!== "Todos" ? productos.filter(p => p.categoria == categoriaSeleccionada):productos;
+
+    productosFiltrados.forEach(p=> {
+
+       const link = document.createElement("a");
+       link.href = `personalizacion.html?nombre=${encodeURIComponent(p.Nombre)}&precio=${encodeURIComponent(p.precio)}&imagen=${encodeURIComponent(p.imagen)}&color=${encodeURIComponent(p.color)}&tallaje=${encodeURIComponent(p.tallaje)}&pernumero=${encodeURIComponent(p.pernumero)}&subcategoria=${encodeURIComponent(p.Sub_Categoria)}`;
+       link.classList.add("Producto");
+       link.style.textDecoration = "none";
+
+        const divImagen=document.createElement("div");
+        divImagen.classList.add("producto-imagen");
+
+        const img=document.createElement("img");
+        img.src=p.imagen;
+        img.alt=p.Nombre;
+        divImagen.appendChild(img);
+
+        const divInfo =document.createElement("div");
+        divInfo.classList.add("producto-info");
+
+        const nombre = document.createElement("h3");
+        nombre.classList.add("producto-nombre");
+        nombre.textContent = p.Nombre;
+
+        const precio = document.createElement("p");
+        precio.classList.add("producto-precio");
+        precio.textContent = p.precio;
+        
+        const categoria=document.createElement("p");
+        categoria.classList.add("producto-categoria");
+        categoria.textContent=p.Categoria;
+
+        divInfo.append(precio,nombre,categoria);
+        link.append(divImagen,divInfo);
+        catalogo.appendChild(link);
+
+    });
+  }
 
 function readHashParams(){
   const raw = (location.hash || '').replace(/^#/, '');
@@ -119,7 +156,4 @@ function aplicarFiltro(){
 // Eventos
 window.addEventListener('hashchange', aplicarFiltro);
 aplicarFiltro();
-
-
-
 

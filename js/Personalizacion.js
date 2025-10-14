@@ -60,7 +60,24 @@ function mostrarPersonalizacion(categoriaSeleccionada = null){
         divOpciones.append(ColorText,divColor);
         
     }
+    if(tallaje=="Calzado"){
+        const TallaText=document.createElement("h2");
+        TallaText.classList.add("opciones-nombre");
+        TallaText.textContent="Elige tu talla";
 
+        const divTalla=document.createElement("div");
+        divTalla.classList.add("opciones-talla");
+        for(i=26;i<45;i+=2)
+        {
+            const divTallaitem=document.createElement("div");
+            divTallaitem.classList.add("opciones-talla-item");
+            divTallaitem.textContent=i;
+            divTalla.append(divTallaitem);
+        }
+        divOpciones.append(TallaText,divTalla);
+    }
+
+    
     personalizar.append(divImagen,divOpciones);
 
 

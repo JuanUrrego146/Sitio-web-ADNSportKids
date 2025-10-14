@@ -1,12 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  margin: 0;
+  padding: 10px;
+  display: flex;
+  justify-content:center;
+}
 main {
     height: 100vh;     /* ocupa toda la altura visible */
+    width: 100%;
 }
 .contenedor-personalizar{
     display:flex;
     flex-direction: row;
-    align-items: stretch;
     height: 100%;
-    gap: 20px;
+    width: 100%;
 }
 
 .imagen {
@@ -14,10 +26,13 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 .imagen img{
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
     padding: 50px;
     
 }
@@ -26,38 +41,47 @@ main {
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: lightgrey;
+    width: 100%;
+    background-color:  #f6f6f6;
     gap: 6px;
-    padding: 20px;
+    padding: 40px 30px;
     flex: 1;
 }
 .opciones-categoria{
-    font-weight: bold;
-    color:gray;
-    font-size: 1em;
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
 }
 .opciones-nombre{
-    font-weight: bold;
-    color:black;
-    font-size: 1.2em;
+    font-size: 1.6rem;
+    margin: 5px 0 10px 0;
 }
 .opciones-precio{
-    font-weight: bold;
-    color:red;
-    font-size: 1.2em;
+  color: #c00000;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
 }
 .opciones-talla{ 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(70px,1fr));
+    gap: 10px;
     justify-items: center;
-    padding: 20px;
-    background-color: white; 
+    padding: 10px;
+
 }
 .opciones-talla-item{
-    background-color: gray;
+    display: grid;
+    place-items: center;
+    height: 50px;
+    width: 70px;
+    background-color: lightgray;
+    border:1px solid black;
+    border-color: rgb(139, 139, 139);
     color:black;
     font-size: 0.8em;
+    font-weight: 600;
+    text-align: center;
 }
 .opciones-color{
     display:flex;
