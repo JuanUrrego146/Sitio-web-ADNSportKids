@@ -3,35 +3,54 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ADN Sport Kids</title>
+  <title>ADN Sport Kids — Home</title>
 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/teams-slider.css">
-
-
+  
+  <link rel="stylesheet" href="css/Style.css">           
+  <link rel="stylesheet" href="css/Catalogo_Style.css">   
+  <link rel="stylesheet" href="css/footer.css">           
+  <link rel="stylesheet" href="css/teams-slider.css">     
 </head>
 <body>
+  
   <div data-include="adn-header"></div>
 
-  <main class="adn-container" style="padding:24px 16px;">
-    <h1>Home</h1>
-    <p>pppppppneeeee</p>
+  <main>
+  
     
+  <section class="adn-hero">
+    <img class="adn-hero__bg" src="img/Background.jpg" alt="Estadio iluminado de noche">
+    <div class="adn-hero__shade"></div>
+    <div class="adn-hero__content">
+      <h1>
+        <span class="accent">¡VIVE EL DEPORTE</span><br>
+        CON ADN SPORTS!
+      </h1>
+    </div>
+  </section>
+ 
+
+  
+    <section id="catalogo" class="contenedor_catalogo"></section>
   </main>
 
-   <div data-include="adn-teams"></div>
+ 
+  <div data-include="adn-teams"></div>
+
+
   <div data-include="adn-footer"></div>
 
+  
   <script src="js/header.js"></script>
   <script src="js/footer.js"></script>
+
+  
+  <script src="js/Catalogo_java_script.js"></script>
+
+
   <script src="js/teams-slider.js" defer></script>
 </body>
 </html>
-
-
-
-

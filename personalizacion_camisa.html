@@ -4,31 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Personaliza tu Camisa - ADN Sport Kids</title>
+  
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/footer.css">
+
   <link rel="stylesheet" href="css/stylesPersonalizacionCamisas.css" />
 </head>
 <body>
-
+  <div data-include="adn-header"></div>
+  
   <div class="product-container">
 
-    <!-- Galería de imágenes -->
+   
     <div class="image-gallery">
       <div class="image-wrapper">
-        <img src="imagenes/camisa-front.avif" alt="Camisa Colombia frente" />
+        <img src="imagenes/camisa-front.avif" alt="Camisa Colombia frente" />  
       </div>
       <div class="image-wrapper camisa-back">
-        <img src="imagenes/camisa-back.png" alt="Camisa Colombia reverso" id="camisaBack" />
+        <img src="imagenes/camisa-back.png" alt="Camisa Colombia reverso" id="camisaBack" /> 
         <div class="overlay-text">
-          <span id="shirtNumber">##</span>
           <span id="shirtName">NOMBRE</span>
+          <span id="shirtNumber">##</span>
         </div>
       </div>
     </div>
 
-    <!-- Sección de personalización -->
+   
     <div class="details">
-      <h3>FUTBOL</h3>
-      <h1>CAMISA COLOMBIA</h1>
-      <p class="price">$300.000</p>
+      <h3>FUTBOL</h3>  
+      <h1>CAMISA COLOMBIA</h1>  
+      <p class="price">$300.000</p>  
 
       <div class="customization">
         <h4>AGRÉGALE TU TOQUE AL PRODUCTO</h4>
@@ -43,7 +49,7 @@
           <label for="addName">AÑADE TU NOMBRE Y NÚMERO</label>
         </div>
 
-        <!-- Selección de jugador -->
+    
         <div class="player-list" id="playerList">
           <label for="playerSelect">Selecciona un jugador</label>
           <select id="playerSelect">
@@ -55,7 +61,7 @@
           </select>
         </div>
 
-        <!-- Inputs personalizados -->
+    
         <div class="custom-inputs hidden" id="customInputs">
           <div class="inputs-row">
             <div>
@@ -70,7 +76,7 @@
         </div>
       </div>
 
-      <!-- Tallas -->
+
       <div class="sizes">
         <h4>ESCOGE TU TALLA</h4>
         <div class="size-options">
@@ -82,12 +88,22 @@
         </div>
       </div>
 
-      <!-- Botones finales -->
+
       <div class="actions">
-        <button class="btn">COMPRAR</button>
         <button class="btn-secondary">AÑADIR AL CARRO 🛒</button>
       </div>
 
+    </div>
+  </div>
+
+  <div data-include="adn-footer"></div>
+
+
+  <div id="cartConfirmation" class="cart-confirmation hidden">
+    <p class="cart-title">PRODUCTO AGREGADO AL CARRITO</p>
+    <div class="cart-content">
+      <p class="cart-name" id="cartProductName">CAMISA COLOMBIA</p>
+      <p class="cart-price" id="cartProductPrice">$300.000</p>
     </div>
   </div>
 
@@ -99,19 +115,18 @@
     const playerSelect = document.getElementById('playerSelect');
     const sizeButtons = document.querySelectorAll('.size-btn');
 
-    // Elementos del texto sobre la camisa
+
     const shirtNumber = document.getElementById('shirtNumber');
     const shirtName = document.getElementById('shirtName');
 
-    // Inputs personalizados
     const inputNumber = document.getElementById('number');
     const inputName = document.getElementById('name');
 
-    // Cambio de modo (jugador o nombre propio)
+
     choosePlayer.addEventListener('change', () => {
       playerList.classList.remove('hidden');
       customInputs.classList.add('hidden');
-      updateFromSelect(); // Actualiza vista
+      updateFromSelect();
     });
 
     addName.addEventListener('change', () => {
@@ -121,7 +136,7 @@
       shirtName.textContent = "NOMBRE";
     });
 
-    // Actualizar vista al elegir jugador
+ 
     playerSelect.addEventListener('change', updateFromSelect);
 
     function updateFromSelect() {
@@ -136,7 +151,6 @@
       shirtNumber.textContent = num;
     }
 
-    // Actualizar vista en tiempo real desde inputs
     inputNumber.addEventListener('input', () => {
       shirtNumber.textContent = inputNumber.value || "##";
     });
@@ -145,7 +159,6 @@
       shirtName.textContent = inputName.value.toUpperCase() || "NOMBRE";
     });
 
-    // Selección de talla
     sizeButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         sizeButtons.forEach(b => b.classList.remove('selected'));
@@ -153,6 +166,10 @@
       });
     });
   </script>
+  
+  <script src="js/personalizacion_camisa.js"></script>
 
+  <script src="js/header.js"></script>
+  <script src="js/footer.js"></script>
 </body>
 </html>

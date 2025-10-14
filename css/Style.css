@@ -76,4 +76,72 @@ body{
   .adn-top .adn-container{ padding:8px 12px; }
   .adn-nav .adn-container{ padding:8px 12px; }
 }
+.adn-nav a.is-active {
+  border-bottom: 2px solid #c9a227;
+  color: #c9a227 !important;
+}
+/* ===== HERO ===== */
+.adn-hero{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 5;         /* alto proporcional; se adapta */
+  min-height: 220px;            /* evita que quede muy bajito en móviles */
+  overflow: hidden;
+}
+
+/* franja dorada izquierda */
+.adn-hero::before{
+  content:"";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 18px;
+  background: #c9a227;          /* dorado de tu marca */
+  z-index: 2;
+}
+
+.adn-hero__bg{
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(.55);       /* oscurece un poco la imagen */
+}
+
+/* degradado suave desde la izquierda (para legibilidad del texto) */
+.adn-hero__shade{
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.15) 40%, rgba(0,0,0,0) 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.adn-hero__content{
+  position: relative;
+  z-index: 3;                    /* por encima de la imagen y el shade */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 clamp(16px, 4vw, 48px);
+}
+
+.adn-hero__content h1{
+  margin: 0;
+  color: #fff;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.02;
+  font-size: clamp(22px, 5.2vw, 56px);  /* responsive */
+  letter-spacing: .5px;
+}
+
+.adn-hero__content .accent{
+  color: #c9a227;                /* la primera línea en dorado */
+}
+
+/* opción mini para pantallas muy pequeñas */
+@media (max-width: 420px){
+  .adn-hero{ aspect-ratio: 16 / 7; min-height: 180px; }
+}
 

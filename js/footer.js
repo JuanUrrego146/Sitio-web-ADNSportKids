@@ -1,4 +1,4 @@
-// js/footer.js
+
 (function () {
   const mountSel = '[data-include="adn-footer"]';
   const url = `partials/footer.html?v=${Date.now()}`;
@@ -8,7 +8,6 @@
     if (y) y.textContent = new Date().getFullYear();
   }
 
-  // 💡 Fuerza centrado sí o sí (aunque otro CSS lo pise)
   function forceCentered(root){
     const inner = root.querySelector('.adn-footer__inner');
     if (inner){
@@ -74,7 +73,7 @@
         mount.innerHTML = html;
         injectYear(mount);
         ensureTwoCols(mount);
-        forceCentered(mount);     // ⬅️ centrado a prueba de todo
+        forceCentered(mount);     
         console.log('[footer] OK renderizado');
       })
       .catch(err => {
