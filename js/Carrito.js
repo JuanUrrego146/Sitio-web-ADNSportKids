@@ -1,9 +1,11 @@
 const Productos= JSON.parse(localStorage.getItem("Carrito")) || null;
 
-let ValorTotal=null;
+let ValorTotal=0;
 
 const contenedor=document.getElementById("contenedor");
-
+const divContenedorProd=document.createElement("div");
+divContenedorProd.classList.add("contenedor-productos");
+contenedor.append(divContenedorProd);
 if(Productos)
 {
     Productos.forEach((p,index) => {
@@ -51,13 +53,16 @@ if(Productos)
             ValorTotal-= parseInt(p.precioProducto.replace(/[^\d]/g, ""));
             Productos.splice(index, 1);  
             localStorage.setItem("Carrito", JSON.stringify(Productos));
+            Total.textContent = "Total: $" + ValorTotal;
 
         })
     
         divInfo.append(NombreProducto,PrecioProducto);
         divProducto.append(divImagen,divInfo,BotonEliminar);
-        contenedor.append(divProducto);
+        divContenedorProd.append(divProducto);
+        contenedor.append(divContenedorProd);
     });
+}
 
     const divInformacion=document.createElement("div");
     divInformacion.classList.add("contenedor-informacion");
@@ -98,14 +103,64 @@ if(Productos)
     Frase.classList.add("informacion-frase");
     Frase.append("A UN PASO DE ", p1, " EL DEPORTE EN TU ", p2);
 
+    const Total=document.createElement("p");
+    Total.classList.add("informacion");
+    if(ValorTotal<=0){
+      Total.textContent="Total: $0"; 
+    }
+    else{
+        Total.textContent="Total: $"+ValorTotal;
+    }
+    
+
     const BtnComprar=document.createElement("button");
     BtnComprar.classList.add("boton-comprar");
     BtnComprar.textContent="REALIZAR COMPRA";
 
-    divDatos.append(divTitulo,Nombre,Numero,Direccion,Ciudad,Frase);
+  BtnComprar.addEventListener('click', () => {
+    const cartPanel = document.createElement("div");
+    cartPanel.classList.add("cart-confirmation");
+
+    const content = document.createElement("div");
+    content.classList.add("cart-content");
+
+    const title = document.createElement("div");
+    title.classList.add("cart-title");
+    title.textContent = "Compra realizada 🛒";
+
+    const nameInfo = document.createElement("div");
+    nameInfo.classList.add("cart-name");
+    nameInfo.textContent = "Productos comprados: " + Productos.length;
+
+    const priceInfo = document.createElement("div");
+    priceInfo.classList.add("cart-price");
+    priceInfo.textContent = "Total pagado: $" + ValorTotal;
+
+    content.append(title, nameInfo, priceInfo);
+    cartPanel.append(content);
+    document.body.appendChild(cartPanel);
+    Productos.length = 0;
+
+
+    localStorage.setItem("Carrito", JSON.stringify(Productos));
+
+
+    divContenedorProd.innerHTML = "";
+
+
+    ValorTotal = 0;
+    Total.textContent = "Total: $0";
+
+    setTimeout(() => cartPanel.classList.add("show"), 10);
+    setTimeout(() => {
+        cartPanel.classList.remove("show");
+        cartPanel.classList.add("hide");
+    }, 3000);
+    setTimeout(() => cartPanel.remove(), 4000);
+});
+    divDatos.append(divTitulo,Nombre,Numero,Direccion,Ciudad,Frase,Total);
     divInformacion.append(divDatos,BtnComprar);
     contenedor.append(divInformacion);
+    
 
 
-
-}
