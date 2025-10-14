@@ -44,21 +44,35 @@ function mostrarPersonalizacion(categoriaSeleccionada = null){
         const divColor=document.createElement("div");
         divColor.classList.add("opciones-color");
 
-        const color1=document.createElement("div");
+        const color1=document.createElement("button");
         color1.classList.add("opciones-color-item");
         color1.style.backgroundColor="red";
+        color1.valColor="Rojo";
 
-        const color2=document.createElement("div");
+        const color2=document.createElement("button");
         color2.classList.add("opciones-color-item");
         color2.style.backgroundColor="green";
+        color2.valColor="Verde";
 
-        const color3=document.createElement("div");
+        const color3=document.createElement("button");
         color3.classList.add("opciones-color-item");
         color3.style.backgroundColor="blue";
+        color3.valColor="Azul";
 
         divColor.append(color1,color2,color3);
         divOpciones.append(ColorText,divColor);
+
+        const Colores =divColor.querySelectorAll('.opciones-color-item');
         
+        let EleccionColor=null;
+
+        Colores.forEach(btn => {
+            btn.addEventListener('click',()=> {
+                Colores.forEach(b=>b.classList.remove('selected'));
+                btn.classList.add('selected');
+                EleccionColor = btn.valColor;
+            })
+        })
     }
     if(tallaje=="Calzado"){
         const TallaText=document.createElement("h2");
@@ -67,16 +81,32 @@ function mostrarPersonalizacion(categoriaSeleccionada = null){
 
         const divTalla=document.createElement("div");
         divTalla.classList.add("opciones-talla");
-        for(i=26;i<45;i+=2)
+        for(let i=26;i<45;i+=2)
         {
-            const divTallaitem=document.createElement("div");
+            const divTallaitem=document.createElement("button");
             divTallaitem.classList.add("opciones-talla-item");
             divTallaitem.textContent=i;
             divTalla.append(divTallaitem);
         }
         divOpciones.append(TallaText,divTalla);
-    }
 
+       const TallaBotones = divTalla.querySelectorAll('.opciones-talla-item');
+
+       let tallaSeleccionada = null;
+
+        TallaBotones.forEach(btn => {
+            btn.addEventListener('click', () => {
+            TallaBotones.forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            tallaSeleccionada = btn.textContent; 
+        });
+});
+    }
+    const divBoton=document.createElement("button");
+    divBoton.classList.add("opciones-boton");
+    divBoton.textContent="AÑADIR AL CARRO 🛒";
+
+    divOpciones.append(divBoton);
     
     personalizar.append(divImagen,divOpciones);
 

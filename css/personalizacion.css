@@ -75,13 +75,19 @@ main {
     place-items: center;
     height: 50px;
     width: 70px;
-    background-color: lightgray;
-    border:1px solid black;
-    border-color: rgb(139, 139, 139);
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
     color:black;
     font-size: 0.8em;
     font-weight: 600;
     text-align: center;
+}
+.opciones-talla-item:hover{
+    background-color:#ddd; 
+}
+.opciones-talla-item.selected{
+    background-color: #ccc;
+    border-color: #000;
 }
 .opciones-color{
     display:flex;
@@ -92,9 +98,30 @@ main {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    border: 2px solid black;
+    border: 2px solid lightgray;
+}
+.opciones-color-item.selected{
+    width: 35px;
+    height: 35px;
+    border: 4px solid black;
+}
+.opciones-boton{
+  border: none;
+  border-radius: 25px;
+  padding: 12px 25px;
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  background-color: black;
+  color: #fff;
+  margin: 30px;
+  text-align: center;
+  transition:background-color 0.3s ease;;
+
 }
 
+.opciones-boton:hover {
+  background-color: #555;
+}
 @media (max-width: 768px) {
      .contenedor-personalizar {
         flex-direction: column;
