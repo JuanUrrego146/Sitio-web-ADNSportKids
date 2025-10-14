@@ -1,5 +1,5 @@
-// === DATA ===
-const productos = [
+const productosGuardados = JSON.parse(localStorage.getItem("productos"));
+const productos = productosGuardados || [
   {Categoria:"Hombre", Sub_Categoria:"Uniformes",Nombre:"Uniforme inter de Miami",imagen:"Imagenes/Uni_Inter_Miami_Frontal.png",precio:"$85.0000",color:"No",tallaje:"Ropa",pernumero:"si", imagen2:"Imagenes/Uni_Inter_Miami_Espalda.avif",Fav:"No"},
   {Categoria:"Hombre", Sub_Categoria:"Uniformes",Nombre:"Uniforme Real Madrid",imagen:"Imagenes/Uni_Real_Madrid.png",precio:"$85.0000",color:"No",tallaje:"Ropa",pernumero:"si", imagen2:"Imagenes/Uni_Real_Madrid_Espalda.avif",Fav:"No"},
   {Categoria:"Hombre", Sub_Categoria:"Uniformes",Nombre:"Uniforme Colombia",imagen:"Imagenes/camisa-front.avif",precio:"$80.0000",color:"No",tallaje:"Ropa",pernumero:"si", imagen2:"Imagenes/camisa-back.png",Fav:"No"},
@@ -23,72 +23,7 @@ const catalogo = document.getElementById("catalogo");
 
 const norm = (s='') => s.toString().toLowerCase()
   .normalize('NFD').replace(/\p{Diacritic}/gu,'');
-function mostrarCatalogo(categoriaSeleccionada = null){
-  catalogo.innerHTML =""; //Limpia el html
 
-  const productosFiltrados= categoriaSeleccionada && categoriaSeleccionada!== "Todos" ? productos.filter(p => p.categoria == categoriaSeleccionada):productos;
-
-  productosFiltrados.forEach(p=> {
-
-      const link = document.createElement("a");
-      link.href = `personalizacion.html?nombre=${encodeURIComponent(p.Nombre)}&precio=${encodeURIComponent(p.precio)}&imagen=${encodeURIComponent(p.imagen)}&color=${encodeURIComponent(p.color)}&tallaje=${encodeURIComponent(p.tallaje)}&pernumero=${encodeURIComponent(p.pernumero)}&subcategoria=${encodeURIComponent(p.Sub_Categoria)}`;
-      link.classList.add("Producto");
-      link.style.textDecoration = "none";
-
-      const divImagen=document.createElement("div");
-      divImagen.classList.add("producto-imagen");
-
-      const img=document.createElement("img");
-      img.src=p.imagen;
-      img.alt=p.Nombre;
-      
-
-      const Favoritos=document.createElement("button");
-      Favoritos.classList.add("boton-favoritos");
-      if(p.Fav=="Si"){
-          Favoritos.classList.add("activo");
-      }
-      Favoritos.innerHTML='<i class="fa-solid fa-heart"></i>';
-
-      Favoritos.addEventListener("click", () => {
-            event.stopPropagation(); 
-            event.preventDefault(); 
-          if(p.Fav=="No"){
-
-              Favoritos.classList.add("activo"); 
-              p.Fav="Si";
-          }
-          else{
-              Favoritos.classList.remove("activo"); 
-              p.Fav="No";  
-          }
-            localStorage.setItem("productos", JSON.stringify(productos));
-      });
-
-      divImagen.append(img);
-
-      const divInfo =document.createElement("div");
-      divInfo.classList.add("producto-info");
-
-      const nombre = document.createElement("h3");
-      nombre.classList.add("producto-nombre");
-      nombre.textContent = p.Nombre;
-
-      const precio = document.createElement("p");
-      precio.classList.add("producto-precio");
-      precio.textContent = p.precio;
-      
-      const categoria=document.createElement("p");
-      categoria.classList.add("producto-categoria");
-      categoria.textContent=p.Categoria;
-
-      divInfo.append(precio,nombre,categoria);
-      link.append(divImagen,divInfo,Favoritos);
-      catalogo.appendChild(link);
-
-  });
-
-}
 function readHashParams(){
   const raw = (location.hash || '').replace(/^#/, '');
   const parts = raw ? raw.split('&') : [];
@@ -142,6 +77,29 @@ function render(items){
     img.src = p.imagen;
     img.alt = p.Nombre;
     divImagen.appendChild(img);
+    
+
+    const Favoritos=document.createElement("button");
+    Favoritos.classList.add("boton-favoritos");
+    
+    if(p.Fav=="Si"){
+          Favoritos.classList.add("activo");
+    }
+    Favoritos.innerHTML='<i class="fa-solid fa-heart"></i>';
+    Favoritos.addEventListener("click", () => {
+     event.stopPropagation(); 
+     event.preventDefault(); 
+        if(p.Fav=="No"){
+
+            Favoritos.classList.add("activo"); 
+            p.Fav="Si";
+        }
+        else{
+            Favoritos.classList.remove("activo"); 
+            p.Fav="No";  
+        }
+          localStorage.setItem("productos", JSON.stringify(productos));
+    });
 
     const divInfo = document.createElement("div");
     divInfo.classList.add("producto-info");
@@ -153,7 +111,7 @@ function render(items){
     precio.textContent = p.precio;
 
     divInfo.append(nombre, precio);
-    link.append(divImagen, divInfo);
+    link.append(divImagen, divInfo,Favoritos);
     catalogo.appendChild(link);
   });
 }

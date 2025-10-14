@@ -7,6 +7,8 @@ const tallaje = params.get("tallaje");
 const pernumero = params.get("pernumero");
 const categoria=params.get("subcategoria");
 
+let Carrito = JSON.parse(localStorage.getItem("Carrito")) || [];
+
 const personalizar = document.getElementById("personalizar");
 
 function mostrarPersonalizacion(categoriaSeleccionada = null){
@@ -105,6 +107,53 @@ function mostrarPersonalizacion(categoriaSeleccionada = null){
     const divBoton=document.createElement("button");
     divBoton.classList.add("opciones-boton");
     divBoton.textContent="AÑADIR AL CARRO 🛒";
+
+divBoton.addEventListener('click', () => {
+    // Crear el cartel
+    const cartPanel = document.createElement("div");
+    cartPanel.classList.add("cart-confirmation");
+
+    const content = document.createElement("div");
+    content.classList.add("cart-content");
+
+    const title = document.createElement("div");
+    title.classList.add("cart-title");
+    title.textContent = "Producto añadido al carrito 🛒";
+
+    const name = document.createElement("div");
+    name.classList.add("cart-name");
+    name.textContent = nombre;
+
+    const price = document.createElement("div");
+    price.classList.add("cart-price");
+    price.textContent = precio;
+
+    content.append(title, name, price);
+    cartPanel.append(content);
+    document.body.appendChild(cartPanel);
+
+    const producto ={
+        nombreProducto: nombre,
+        precioProducto: precio,
+        imagenProducto: imagen,
+
+    }
+
+    Carrito.push(producto);
+    localStorage.setItem("Carrito", JSON.stringify(Carrito));
+    // Mostrar animación de entrada
+    setTimeout(() => cartPanel.classList.add("show"), 10);
+
+    // Desaparecer con animación
+    setTimeout(() => {
+        cartPanel.classList.remove("show");
+        cartPanel.classList.add("hide");
+    }, 3000);
+
+    // Eliminar del DOM
+    setTimeout(() => cartPanel.remove(), 4000);
+});
+
 
     divOpciones.append(divBoton);
     

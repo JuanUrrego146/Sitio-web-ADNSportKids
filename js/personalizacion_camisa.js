@@ -17,6 +17,9 @@ const cartPanel = document.getElementById('cartConfirmation');
 const cartName = document.getElementById('cartProductName');
 const cartPrice = document.getElementById('cartProductPrice');
 
+
+let Carrito = JSON.parse(localStorage.getItem("Carrito")) || [];
+
 if (nombre && precio && imagen && subcategoria) {
 
   imageFront.src = imagen;
@@ -49,6 +52,16 @@ addToCartBtn.addEventListener('click', () => {
 
   cartPanel.classList.remove('hidden');
   cartPanel.classList.add('show');
+
+  const producto ={
+        nombreProducto: nombre,
+        precioProducto: precio,
+        imagenProducto: imagen,
+
+    }
+
+    Carrito.push(producto);
+    localStorage.setItem("Carrito", JSON.stringify(Carrito));
 
   setTimeout(() => {
     cartPanel.classList.remove('show');
