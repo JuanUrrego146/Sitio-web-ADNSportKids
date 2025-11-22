@@ -77,19 +77,30 @@ if(Productos)
 
     const Nombre=document.createElement("p");
     Nombre.classList.add("informacion");
-    Nombre.textContent="Andres Gutierrez";
     
     const Numero=document.createElement("p");
     Numero.classList.add("informacion");
-    Numero.textContent="3605266357";
 
     const Direccion=document.createElement("p");
     Direccion.classList.add("informacion");
-    Direccion.textContent="CLL 270 125-11";
 
     const Ciudad=document.createElement("p");
     Ciudad.classList.add("informacion");
-    Ciudad.textContent="Bogota";
+
+    const usuarioActual = JSON.parse(localStorage.getItem("usuario_actual"));
+
+    if (usuarioActual) {
+        Nombre.textContent = usuarioActual.username;
+        Numero.textContent = "+57 " + usuarioActual.phone;
+        Direccion.textContent = usuarioActual.address;
+        Ciudad.textContent = usuarioActual.city;
+    } else {
+        Nombre.textContent = "Usuario no encontrado";
+        Numero.textContent = "-";
+        Direccion.textContent = "-";
+        Ciudad.textContent = "-";
+    }
+
 
     const p1=document.createElement("h2");
     p1.classList.add("informacion-frase");
@@ -112,7 +123,6 @@ if(Productos)
         Total.textContent="Total: $"+ValorTotal;
     }
     
-
     const BtnComprar=document.createElement("button");
     BtnComprar.classList.add("boton-comprar");
     BtnComprar.textContent="REALIZAR COMPRA";

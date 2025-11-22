@@ -1,15 +1,14 @@
-let productos = [];  // ⬅️ Aquí se cargará el JSON dinámicamente
+let productos = []; 
 
 fetch("json/productos.json")
   .then(res => res.json())
   .then(data => {
     productos = data;
-    iniciarCatalogo();   // ⬅️ Cuando termina de cargar, inicia todo
+    iniciarCatalogo(); 
   })
   .catch(err => console.error("Error cargando productos.json:", err));
 
 
-// 🔥 Tu lógica queda igual, solo se envuelve en una función
 function iniciarCatalogo(){
 
   const catalogo = document.getElementById("catalogo");

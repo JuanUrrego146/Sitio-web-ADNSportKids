@@ -32,25 +32,39 @@
     </div>
 
     <!-- FORMULARIO DE REGISTRO -->
-    <div class="form-container hidden" id="registerForm">
-      <h2>REGÍSTRATE EN ADN SPORT KIDS</h2>
+  <div class="form-container hidden" id="registerForm">
+    <h2>REGÍSTRATE EN ADN SPORT KIDS</h2>
 
-      <label for="username">NOMBRE DE USUARIO*</label>
-      <input type="text" id="username" placeholder="INGRESE AQUÍ*" />
+    <label for="username">NOMBRE DE USUARIO*</label>
+    <input type="text" id="username" placeholder="INGRESE AQUÍ*" />
 
-      <label for="emailRegister">CORREO ELECTRÓNICO*</label>
-      <input type="email" id="emailRegister" placeholder="INGRESE AQUÍ*" />
+    <label for="emailRegister">CORREO ELECTRÓNICO*</label>
+    <input type="email" id="emailRegister" placeholder="INGRESE AQUÍ*" />
 
-      <label for="passwordRegister">CONTRASEÑA*</label>
-      <input type="password" id="passwordRegister" placeholder="INGRESE AQUÍ*" />
+    <label for="passwordRegister">CONTRASEÑA*</label>
+    <input type="password" id="passwordRegister" placeholder="INGRESE AQUÍ*" />
 
-      <button class="btn" id="createAccount">CREAR CUENTA</button>
+    <!-- NUEVA DIRECCIÓN DE ENVÍO -->
+    <label for="addressRegister">DIRECCIÓN DE ENVÍO*</label>
+    <input type="text" id="addressRegister" placeholder="CALLE, NÚMERO, COLONIA..." />
 
-      <hr />
+    
+    <!-- NUEVO: NÚMERO DE CELULAR -->
+    <label for="phoneRegister">NÚMERO DE CELULAR*</label>
+    <input type="text" id="phoneRegister" placeholder="EJ: 300-123-4567" maxlength="12" />
 
-      <p>¿YA TIENES CUENTA?</p>
-      <button class="btn-secondary" id="goLogin">INICIA SESIÓN</button>
-    </div>
+    <!-- NUEVO: CIUDAD -->
+    <label for="cityRegister">CIUDAD DONDE VIVES*</label>
+    <input type="text" id="cityRegister" placeholder="INGRESE SU CIUDAD" />
+
+    <button class="btn" id="createAccount">CREAR CUENTA</button>
+
+    <hr />
+
+    <p>¿YA TIENES CUENTA?</p>
+    <button class="btn-secondary" id="goLogin">INICIA SESIÓN</button>
+  </div>
+
 
   </div>
 
@@ -62,6 +76,7 @@
     const goLogin = document.getElementById('goLogin');
     const loginBtn = document.getElementById('loginBtn');
     const createAccount = document.getElementById('createAccount');
+    const phoneInput = document.getElementById("phoneRegister");
 
     // Cambiar entre login y registro
     goRegister.addEventListener('click', () => {
@@ -74,15 +89,102 @@
       loginForm.classList.remove('hidden');
     });
 
-    // Redirección al presionar "Iniciar sesión"
-    loginBtn.addEventListener('click', () => {
-      window.location.href = 'index.html';
-    });
+    
+  phoneInput.addEventListener("input", () => {
+    let value = phoneInput.value.replace(/\D/g, ""); // quitar todo lo que no sea número
+
+    if (value.length > 3 && value.length <= 6) {
+      value = value.replace(/(\d{3})(\d+)/, "$1-$2");
+    } else if (value.length > 6) {
+      value = value.replace(/(\d{3})(\d{3})(\d+)/, "$1-$2-$3");
+    }
+
+    phoneInput.value = value.slice(0, 12); // limitar a XXX-XXX-XXXX
+  });
 
     // Redirección al presionar "Crear cuenta"
-    createAccount.addEventListener('click', () => {
-      window.location.href = 'index.html';
+
+  createAccount.addEventListener('click', () => {
+    const username = document.getElementById('username').value.trim();
+    const email = document.getElementById('emailRegister').value.trim();
+    const password = document.getElementById('passwordRegister').value.trim();
+    const address = document.getElementById('addressRegister').value.trim();
+    const phone = document.getElementById('phoneRegister').value.trim();
+    const city = document.getElementById('cityRegister').value.trim();
+
+    if (!username || !email || !password || !address || !phone || !city) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+
+    const newUser = { 
+      username, 
+      email, 
+      password, 
+      address,
+      phone,
+      city
+    };
+
+    // Obtener JSON existente o crear uno nuevo
+    let usersJSON = localStorage.getItem("usuarios");
+
+    if (usersJSON) {
+      usersJSON = JSON.parse(usersJSON);
+    } else {
+      usersJSON = { users: [] };
+    }
+
+    // Agregar el nuevo usuario
+    usersJSON.users.push(newUser);
+
+    // Guardar en localStorage
+    localStorage.setItem("usuarios", JSON.stringify(usersJSON));
+
+    // Guardar usuario actual
+    localStorage.setItem("usuario_actual", JSON.stringify(newUser));
+
+    alert("Cuenta creada correctamente ✔️");
+
+    window.location.href = 'index.html';
+  });
+
+
+    loginBtn.addEventListener('click', () => {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!email || !password) {
+        alert("Por favor completa todos los campos.");
+        return;
+      }
+
+      // Obtener usuarios del LocalStorage
+      const usersJSON = JSON.parse(localStorage.getItem("usuarios"));
+
+      if (!usersJSON) {
+        alert("No hay usuarios registrados.");
+        return;
+      }
+
+      // Buscar coincidencia
+      const usuarioEncontrado = usersJSON.users.find(user => 
+        user.email === email && user.password === password
+      );
+
+      if (!usuarioEncontrado) {
+        alert("Correo o contraseña incorrectos ❌");
+        return;
+      }
+
+      // Guardar usuario actual para usar en otras páginas
+      localStorage.setItem("usuario_actual", JSON.stringify(usuarioEncontrado));
+
+      alert("Inicio de sesión exitoso ✔️");
+      window.location.href = "index.html";
     });
+
+
   </script>
 </body>
 </html>
