@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ADN Sport Kids — Panel de administración</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/Style.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-page">
+  <div data-include="adn-header"></div>
+
+  <main class="admin-main">
+    <section class="admin-hero">
+      <div class="adn-container admin-hero__inner">
+        <div class="admin-hero__copy">
+          <p class="admin-eyebrow">Panel de control</p>
+          <h1>Administra tu tienda</h1>
+          <p class="admin-subtitle">Atajos directos a los módulos clave para mantener el catálogo y tus clientes al día.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-grid adn-container">
+      <article class="admin-card" id="envios">
+        <div class="admin-card__icon" aria-hidden="true">
+          <svg class="admin-icon" viewBox="0 0 24 24" role="presentation" focusable="false">
+            <path d="M3 7h12v10H3z" />
+            <path d="M15 9h3l3 3v5h-6z" />
+            <circle cx="7" cy="17" r="1.6" />
+            <circle cx="17" cy="17" r="1.6" />
+          </svg>
+        </div>
+        <div class="admin-card__content">
+          <h2>Gestión de envíos</h2>
+          <p>Supervisa el estado de las entregas, rastrea pedidos y organiza rutas.</p>
+          <a class="admin-card__link" href="#envios">Abrir módulo</a>
+        </div>
+      </article>
+
+      <article class="admin-card" id="usuarios">
+        <div class="admin-card__icon" aria-hidden="true">
+          <svg class="admin-icon" viewBox="0 0 24 24" role="presentation" focusable="false">
+            <circle cx="8" cy="9" r="3" />
+            <circle cx="17" cy="10" r="3" />
+            <path d="M4.5 18a3.5 3.5 0 0 1 3.5-3.5h0a3.5 3.5 0 0 1 3.5 3.5" />
+            <path d="M13.5 18.5a3.5 3.5 0 0 1 3.5-3.5H20" />
+          </svg>
+        </div>
+        <div class="admin-card__content">
+          <h2>Gestión de usuarios</h2>
+          <p>Administra cuentas, roles y bloqueos para mantener la comunidad segura.</p>
+          <a class="admin-card__link" href="#usuarios">Abrir módulo</a>
+        </div>
+      </article>
+
+      <article class="admin-card" id="favoritos">
+        <div class="admin-card__icon" aria-hidden="true">
+          <svg class="admin-icon" viewBox="0 0 24 24" role="presentation" focusable="false">
+            <path d="m12 4.5 2.2 4.46 4.92.68-3.56 3.48.86 4.88L12 15.9l-4.42 2.6.86-4.88-3.56-3.48 4.92-.68z" />
+          </svg>
+        </div>
+        <div class="admin-card__content">
+          <h2>Artículos favoritos</h2>
+          <p>Consulta los productos que más se guardan en favoritos para planificar campañas.</p>
+          <a class="admin-card__link" href="#favoritos">Abrir módulo</a>
+        </div>
+      </article>
+
+      <article class="admin-card" id="articulos">
+        <div class="admin-card__icon" aria-hidden="true">
+          <svg class="admin-icon" viewBox="0 0 24 24" role="presentation" focusable="false">
+            <path d="M4 8.5 12 4l8 4.5v7L12 20l-8-4.5z" />
+            <path d="M12 12.5 20 8.5" />
+            <path d="M12 12.5v7.5" />
+            <path d="M4 8.5l8 4" />
+          </svg>
+        </div>
+        <div class="admin-card__content">
+          <h2>Gestión de artículos</h2>
+          <p>Actualiza precios, existencias y colecciones directamente desde un solo lugar.</p>
+          <a class="admin-card__link" href="#articulos">Abrir módulo</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <div data-include="adn-footer"></div>
+
+  <script src="js/header.js"></script>
+  <script src="js/footer.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const adminLinks = [
+        { text: 'Gestión de envíos', href: '#envios' },
+        { text: 'Gestión de usuarios', href: '#usuarios' },
+        { text: 'Artículos favoritos', href: '#favoritos' },
+        { text: 'Gestión de artículos', href: '#articulos' }
+      ];
+
+      const applyNav = () => {
+        const navList = document.querySelector('.adn-nav-list');
+        if (!navList) return false;
+
+        navList.innerHTML = '';
+        adminLinks.forEach(({ text, href }) => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = href;
+          a.textContent = text;
+          li.appendChild(a);
+          navList.appendChild(li);
+        });
+        return true;
+      };
+
+      if (!applyNav()) {
+        const obs = new MutationObserver(() => {
+          if (applyNav()) obs.disconnect();
+        });
+        obs.observe(document.body, { childList: true, subtree: true });
+      }
+    });
+  </script>
+</body>
+</html>
