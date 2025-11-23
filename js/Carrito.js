@@ -128,6 +128,17 @@ if(Productos)
     BtnComprar.textContent="REALIZAR COMPRA";
 
   BtnComprar.addEventListener('click', () => {
+    
+    const historial = JSON.parse(localStorage.getItem("HistorialCompras")) || [];
+
+    const compraRealizada = {
+        fecha: new Date().toLocaleString(),
+        productos: [...Productos]  
+    };
+
+    historial.push(compraRealizada);
+    localStorage.setItem("HistorialCompras", JSON.stringify(historial));
+
     const cartPanel = document.createElement("div");
     cartPanel.classList.add("cart-confirmation");
 
@@ -149,15 +160,10 @@ if(Productos)
     content.append(title, nameInfo, priceInfo);
     cartPanel.append(content);
     document.body.appendChild(cartPanel);
+
     Productos.length = 0;
-
-
     localStorage.setItem("Carrito", JSON.stringify(Productos));
-
-
     divContenedorProd.innerHTML = "";
-
-
     ValorTotal = 0;
     Total.textContent = "Total: $0";
 
@@ -167,7 +173,9 @@ if(Productos)
         cartPanel.classList.add("hide");
     }, 3000);
     setTimeout(() => cartPanel.remove(), 4000);
-});
+
+    });
+
     divDatos.append(divTitulo,Nombre,Numero,Direccion,Ciudad,Frase,Total);
     divInformacion.append(divDatos,BtnComprar);
     contenedor.append(divInformacion);
