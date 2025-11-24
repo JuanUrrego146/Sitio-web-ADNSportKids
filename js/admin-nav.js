@@ -2,7 +2,7 @@
   const adminLinks = [
     { text: 'Inicio', href: 'admin.html' },
     { text: 'envíos', href: 'envios.html' },
-    { text: 'usuarios', href: 'admin.html#usuarios' },
+    { text: 'usuarios', href: 'gestion_usuarios.html' },
     { text: 'Artículos favoritos', href: 'admin.html#favoritos' },
     { text: 'Inventario', href: 'admin.html#articulos' }
   ];

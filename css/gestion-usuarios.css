@@ -1,0 +1,255 @@
+body.gestion-usuarios {
+  background: #ffffff;
+  color: #0c0c0c;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.admin-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: #c9a227;
+  margin: 0;
+}
+
+.gestion-usuarios main {
+  padding: 32px 0 72px;
+}
+
+.users-hero {
+  position: relative;
+  padding: 42px 0 32px;
+  background: #ffffff;
+  color: #0c0c0c;
+  overflow: hidden;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.users-hero__inner {
+  position: relative;
+  display: grid;
+  gap: 12px;
+}
+
+.users-hero h1 {
+  margin: 6px 0 10px;
+  font-size: clamp(26px, 4vw, 38px);
+}
+
+.users-hero p {
+  margin: 0;
+  max-width: 680px;
+  color: #1a1a1a;
+}
+
+.users-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.users-actions button,
+.users-actions a {
+  border: 1px solid #0c0c0c;
+  background: #0c0c0c;
+  color: #fdfdfd;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 120ms ease, transform 120ms ease, border-color 120ms ease;
+}
+
+.users-actions button:hover,
+.users-actions a:hover {
+  transform: translateY(-1px);
+  background: #1a1a1a;
+  border-color: #c9a227;
+}
+
+.users-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 18px;
+  margin-top: 26px;
+}
+
+.card-panel {
+  background: #0f0f0f;
+  color: #f5f5f5;
+  border-radius: 4px;
+  border: 1px solid #0c0c0c;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+  padding: 18px 18px 16px;
+}
+
+.card-panel h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.card-panel p {
+  margin: 0 0 8px;
+  color: #dcdcdc;
+}
+
+.status-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.badge--active {
+  background: rgba(35, 194, 102, 0.15);
+  color: #9ce3b6;
+}
+
+.badge--banned {
+  background: rgba(220, 53, 69, 0.16);
+  color: #f6b4bd;
+}
+
+.badge--total {
+  background: rgba(201, 162, 39, 0.18);
+  color: #f9e3a7;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 10px;
+  background: #0f0f0f;
+  border: 1px solid #0c0c0c;
+  border-radius: 4px;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+}
+
+.users-table th,
+.users-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.users-table th {
+  background: #0c0c0c;
+  font-weight: 700;
+  color: #f0f0f0;
+}
+
+.users-table tbody tr:hover {
+  background: #1a1a1a;
+}
+
+.user-actions {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.btn-chip {
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 100ms ease, background 120ms ease, border-color 120ms ease;
+}
+
+.btn-chip:hover { transform: translateY(-1px); }
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #2a2a2a;
+  color: #f5f5f5;
+}
+
+.btn-danger {
+  background: #b1202c;
+  color: #fff;
+  border-color: #b1202c;
+}
+
+.login-history {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.login-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid #1f1f1f;
+  background: #111;
+}
+
+.login-row strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.login-row time {
+  color: #c4c4c4;
+}
+
+.empty-state {
+  padding: 12px;
+  border-radius: 4px;
+  background: #0f0f0f;
+  border: 1px dashed #2a2a2a;
+  color: #b5b5b5;
+}
+
+.icon {
+  display: inline-flex;
+}
+
+.icon svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .users-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .users-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .users-table {
+    min-width: 100%;
+  }
+}
