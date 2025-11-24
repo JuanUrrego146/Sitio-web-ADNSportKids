@@ -9,7 +9,14 @@ const loadShipments = () => {
 const saveShipments = (shipments) => {
     localStorage.setItem(ENVIO_STORAGE_KEY, JSON.stringify(shipments));
 };
-
+const safeRead = (key) => {
+    try {
+        return localStorage.getItem(key);
+    } catch (error) {
+        console.warn('No se pudo leer el valor de', key, error);
+        return null;
+    }
+};
 const generateShipmentId = () => {
     const random = Math.floor(Math.random() * 900) + 100;
     return `ADN-${Date.now()}-${random}`;
