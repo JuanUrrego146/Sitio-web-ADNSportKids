@@ -1,5 +1,19 @@
 const Productos= JSON.parse(localStorage.getItem("Carrito")) || null;
+const ENVIO_STORAGE_KEY = "envios";
 
+const loadShipments = () => {
+    const saved = localStorage.getItem(ENVIO_STORAGE_KEY);
+    return saved ? JSON.parse(saved) : [];
+};
+
+const saveShipments = (shipments) => {
+    localStorage.setItem(ENVIO_STORAGE_KEY, JSON.stringify(shipments));
+};
+
+const generateShipmentId = () => {
+    const random = Math.floor(Math.random() * 900) + 100;
+    return `ADN-${Date.now()}-${random}`;
+};
 let ValorTotal=0;
 
 const contenedor=document.getElementById("contenedor");
@@ -46,8 +60,8 @@ if(Productos)
             p.Fav="No";
             BotonEliminar.classList.add("selected");
             setTimeout(() => {
-                divProducto.remove(); 
-                localStorage.setItem("Carrito", JSON.stringify(productos));
+                divProducto.remove();
+                localStorage.setItem("Carrito", JSON.stringify(Productos));
             }, 300);
 
             ValorTotal-= parseInt(p.precioProducto.replace(/[^\d]/g, ""));
@@ -87,13 +101,35 @@ if(Productos)
     const Ciudad=document.createElement("p");
     Ciudad.classList.add("informacion");
 
-    const usuarioActual = JSON.parse(localStorage.getItem("usuario_actual"));
+    const safeParse = (value) => {
+        try {
+            return JSON.parse(value);
+        } catch (error) {
+            console.warn('No se pudo interpretar el usuario almacenado:', error);
+            return null;
+        }
+    };
+
+    const getUsuarioActual = () => {
+        const rawUser = safeRead("usuario_actual");
+        const user = rawUser ? safeParse(rawUser) : null;
+        if (user && user.username && user.address && user.city) return user;
+
+        const usuariosRaw = safeRead("usuarios");
+        const usuariosParsed = usuariosRaw ? safeParse(usuariosRaw) : null;
+        if (usuariosParsed && Array.isArray(usuariosParsed.users) && usuariosParsed.users.length > 0) {
+            return usuariosParsed.users[usuariosParsed.users.length - 1];
+        }
+        return null;
+    };
+
+    const usuarioActual = getUsuarioActual();
 
     if (usuarioActual) {
         Nombre.textContent = usuarioActual.username;
-        Numero.textContent = "+57 " + usuarioActual.phone;
-        Direccion.textContent = usuarioActual.address;
-        Ciudad.textContent = usuarioActual.city;
+        Numero.textContent = usuarioActual.phone || "-";
+        Direccion.textContent = usuarioActual.address || "-";
+        Ciudad.textContent = usuarioActual.city || "-";
     } else {
         Nombre.textContent = "Usuario no encontrado";
         Numero.textContent = "-";
@@ -128,6 +164,38 @@ if(Productos)
     BtnComprar.textContent="REALIZAR COMPRA";
 
   BtnComprar.addEventListener('click', () => {
+    if (!Productos || Productos.length === 0) {
+        alert("No tienes productos en el carrito.");
+        return;
+    }
+
+    const usuarioActual = getUsuarioActual();
+
+    if (!usuarioActual) {
+        alert("Debes iniciar sesión para finalizar la compra.");
+        return;
+    }
+    if (!usuarioActual.username || !usuarioActual.address || !usuarioActual.city) {
+        alert("Tu cuenta no tiene datos completos de envío. Actualiza tu registro para continuar.");
+        return;
+    }
+    const nuevoEnvio = {
+        id: generateShipmentId(),
+        cliente: usuarioActual.username,
+        telefono: usuarioActual.phone || "-",
+        direccion: usuarioActual.address,
+        ciudad: usuarioActual.city,
+        articulos: Productos.map((p) => p.nombreProducto),
+        total: `$${ValorTotal}`,
+        comprado: new Date().toISOString().slice(0, 10),
+        diasRestantes: 5,
+        urgente: false,
+        estado: 'pendiente'
+    };
+
+    const envios = loadShipments();
+    envios.push(nuevoEnvio);
+    saveShipments(envios);
     const cartPanel = document.createElement("div");
     cartPanel.classList.add("cart-confirmation");
 

@@ -62,10 +62,15 @@
   <script src="js/header.js"></script>
   <script src="js/footer.js"></script>
   <script>
-    const shipments = [
+    const ENVIO_STORAGE_KEY = 'envios';
+
+    const defaultShipments = [
       {
         id: 'ADN-1045',
         cliente: 'Valentina Pineda',
+        telefono: '+57 300 000 0000',
+        direccion: 'Cra. 10 #25-50',
+        ciudad: 'Bogotá',
         articulos: ['Set Camiseta & Short Pro', 'Calcetas Negras'],
         total: '$129.900',
         comprado: '2024-04-10',
@@ -76,6 +81,9 @@
       {
         id: 'ADN-1046',
         cliente: 'Mateo Estrada',
+        telefono: '+57 310 123 4567',
+        direccion: 'Cl. 45 #12-30',
+        ciudad: 'Medellín',
         articulos: ['Camiseta Local 24/25', 'Mochila Team'],
         total: '$169.900',
         comprado: '2024-04-11',
@@ -86,6 +94,9 @@
       {
         id: 'ADN-1047',
         cliente: 'Sara Montoya',
+        telefono: '+57 320 555 8899',
+        direccion: 'Av. 68 #102-15',
+        ciudad: 'Barranquilla',
         articulos: ['Camiseta Portero Kids'],
         total: '$99.900',
         comprado: '2024-04-08',
@@ -96,6 +107,9 @@
       {
         id: 'ADN-1048',
         cliente: 'Andrés López',
+        telefono: '+57 301 111 2233',
+        direccion: 'Cl. 15 #8-60',
+        ciudad: 'Cali',
         articulos: ['Short Entrenamiento'],
         total: '$74.900',
         comprado: '2024-04-09',
@@ -104,7 +118,18 @@
         estado: 'pendiente'
       }
     ];
+    const loadShipments = () => {
+      const saved = localStorage.getItem(ENVIO_STORAGE_KEY);
+      if (saved) return JSON.parse(saved);
+      localStorage.setItem(ENVIO_STORAGE_KEY, JSON.stringify(defaultShipments));
+      return [...defaultShipments];
+    };
 
+    const saveShipments = (data) => {
+      localStorage.setItem(ENVIO_STORAGE_KEY, JSON.stringify(data));
+    };
+
+    let shipments = loadShipments();
     const shipmentList = document.getElementById('shipment-list');
     const metricPendientes = document.getElementById('metric-pendientes');
     const metricUrgentes = document.getElementById('metric-urgentes');
@@ -169,6 +194,10 @@
               <p class="detail-value">${item.total}</p>
               <p class="detail-label">Comprado</p>
               <p class="detail-value">${formatDate(item.comprado)}</p>
+              <p class="detail-label">Contacto</p>
+              <p class="detail-value">${item.telefono || '—'}</p>
+              <p class="detail-label">Dirección</p>
+              <p class="detail-value">${item.direccion || '—'}${item.ciudad ? `, ${item.ciudad}` : ''}</p>
             </div>
             <div class="shipment-status">
               <p class="status-label">Tiempo para despachar</p>
@@ -194,6 +223,7 @@
       const idx = shipments.findIndex((item) => item.id === id);
       if (idx === -1) return;
       shipments[idx] = { ...shipments[idx], ...updater(shipments[idx]) };
+      saveShipments(shipments);
       renderShipments();
     };
 

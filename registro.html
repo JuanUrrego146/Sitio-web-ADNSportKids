@@ -117,12 +117,19 @@
       return;
     }
 
-    const newUser = { 
-      username, 
-      email, 
-      password, 
+    const normalizePhone = (value) => {
+      const digits = value.replace(/\D/g, '').slice(-10);
+      if (!digits) return '';
+      const formatted = digits.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+      return `+57 ${formatted}`;
+    };
+
+    const newUser = {
+      username,
+      email,
+      password,
       address,
-      phone,
+      phone: normalizePhone(phone),
       city
     };
 
