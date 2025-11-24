@@ -1,14 +1,7 @@
-const Productos= JSON.parse(localStorage.getItem("Carrito")) || null;
+
 const ENVIO_STORAGE_KEY = "envios";
 
-const loadShipments = () => {
-    const saved = localStorage.getItem(ENVIO_STORAGE_KEY);
-    return saved ? JSON.parse(saved) : [];
-};
 
-const saveShipments = (shipments) => {
-    localStorage.setItem(ENVIO_STORAGE_KEY, JSON.stringify(shipments));
-};
 const safeRead = (key) => {
     try {
         return localStorage.getItem(key);
@@ -16,6 +9,36 @@ const safeRead = (key) => {
         console.warn('No se pudo leer el valor de', key, error);
         return null;
     }
+};
+const safeParse = (value, fallback = null) => {
+    if (value === null || value === undefined || value === "") return fallback;
+    try {
+        return JSON.parse(value);
+    } catch (error) {
+        console.warn('No se pudo interpretar el valor almacenado:', error);
+        return fallback;
+    }
+};
+
+const rawCarrito = safeRead("Carrito");
+const parsedCarrito = safeParse(rawCarrito, []);
+const Productos = Array.isArray(parsedCarrito) ? parsedCarrito : (() => {
+    console.warn('El carrito almacenado no es un arreglo. Se usará un listado vacío.');
+    return [];
+})();
+
+const loadShipments = () => {
+    const saved = safeRead(ENVIO_STORAGE_KEY);
+    const parsed = safeParse(saved, []);
+    if (!Array.isArray(parsed)) {
+        console.warn('El registro de envíos no tiene el formato esperado. Se usará una lista vacía.');
+        return [];
+    }
+    return parsed;
+};
+
+const saveShipments = (shipments) => {
+    localStorage.setItem(ENVIO_STORAGE_KEY, JSON.stringify(shipments));
 };
 const generateShipmentId = () => {
     const random = Math.floor(Math.random() * 900) + 100;
@@ -108,14 +131,6 @@ if(Productos)
     const Ciudad=document.createElement("p");
     Ciudad.classList.add("informacion");
 
-    const safeParse = (value) => {
-        try {
-            return JSON.parse(value);
-        } catch (error) {
-            console.warn('No se pudo interpretar el usuario almacenado:', error);
-            return null;
-        }
-    };
 
     const getUsuarioActual = () => {
         const rawUser = safeRead("usuario_actual");

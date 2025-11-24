@@ -4,9 +4,29 @@
   const historialContainer = document.getElementById('historial-logins');
   const btnExportar = document.getElementById('btn-exportar');
   const btnLimpiarHistorial = document.getElementById('btn-limpiar-historial');
+  const leerLocalStorageSeguro = (key, fallback) => {
+    try {
+      const rawValue = localStorage.getItem(key);
+      if (!rawValue) return fallback;
+      const parsed = JSON.parse(rawValue);
+      if (Array.isArray(fallback)) {
+        return Array.isArray(parsed) ? parsed : fallback;
+      }
+
+      if (parsed && typeof parsed === 'object') {
+        return parsed;
+      }
+
+      return fallback;
+    } catch (error) {
+      console.warn(`No se pudo parsear el valor de ${key} en localStorage. Se usará el valor por defecto.`, error);
+      localStorage.removeItem(key);
+      return fallback;
+    }
+  };
 
   const obtenerUsuarios = () => {
-    const data = JSON.parse(localStorage.getItem('usuarios') || '{"users":[]}');
+    const data = leerLocalStorageSeguro('usuarios', { users: [] });
     return Array.isArray(data.users) ? data.users : [];
   };
 
@@ -14,7 +34,7 @@
     localStorage.setItem('usuarios', JSON.stringify({ users: usuarios }));
   };
 
-  const obtenerHistorial = () => JSON.parse(localStorage.getItem('historial_logins') || '[]');
+  const obtenerHistorial = () => leerLocalStorageSeguro('historial_logins', []);
   const guardarHistorial = (historial) => localStorage.setItem('historial_logins', JSON.stringify(historial));
 
   const formatearFecha = (iso) => {
