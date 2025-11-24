@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ADN Sport Kids — Gestión de envíos</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/Style.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/envios.css">
+</head>
+<body class="envios-page">
+  <div data-include="adn-header"></div>
+
+  <main class="envios-main">
+    <header class="envios-hero">
+      <div class="adn-container envios-hero__inner">
+        <div class="envios-hero__copy">
+          <p class="envios-eyebrow">Logística</p>
+          <h1>Gestión de envíos</h1>
+          <p class="envios-subtitle">Controla los pedidos pendientes, marca los que ya salieron y prioriza los urgentes para cumplir con el despacho en máximo 5 días.</p>
+        </div>
+        <div class="envios-metrics">
+          <div class="metric-card">
+            <p class="metric-label">Pendientes</p>
+            <p class="metric-value" id="metric-pendientes">0</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">Urgentes</p>
+            <p class="metric-value" id="metric-urgentes">0</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">Listos</p>
+            <p class="metric-value" id="metric-listos">0</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="envios-panel adn-container">
+      <header class="panel-head">
+        <div>
+          <h2>Pedidos en proceso</h2>
+          <p class="panel-lead">Actualiza cada envío con un clic: marca como enviado, resalta urgentes o elimina los que se cancelen.</p>
+        </div>
+        <div class="legend">
+          <span class="legend-dot legend-dot--urgent"></span> Urgente
+          <span class="legend-dot legend-dot--pending"></span> Pendiente
+          <span class="legend-dot legend-dot--done"></span> Enviado
+        </div>
+      </header>
+
+      <ul class="shipment-list" id="shipment-list" aria-live="polite"></ul>
+    </section>
+  </main>
+
+  <div data-include="adn-footer"></div>
+
+  <script src="js/header.js"></script>
+  <script src="js/footer.js"></script>
+  <script>
+    const shipments = [
+      {
+        id: 'ADN-1045',
+        cliente: 'Valentina Pineda',
+        articulos: ['Set Camiseta & Short Pro', 'Calcetas Negras'],
+        total: '$129.900',
+        comprado: '2024-04-10',
+        diasRestantes: 3,
+        urgente: false,
+        estado: 'pendiente'
+      },
+      {
+        id: 'ADN-1046',
+        cliente: 'Mateo Estrada',
+        articulos: ['Camiseta Local 24/25', 'Mochila Team'],
+        total: '$169.900',
+        comprado: '2024-04-11',
+        diasRestantes: 2,
+        urgente: true,
+        estado: 'pendiente'
+      },
+      {
+        id: 'ADN-1047',
+        cliente: 'Sara Montoya',
+        articulos: ['Camiseta Portero Kids'],
+        total: '$99.900',
+        comprado: '2024-04-08',
+        diasRestantes: 1,
+        urgente: false,
+        estado: 'pendiente'
+      },
+      {
+        id: 'ADN-1048',
+        cliente: 'Andrés López',
+        articulos: ['Short Entrenamiento'],
+        total: '$74.900',
+        comprado: '2024-04-09',
+        diasRestantes: 4,
+        urgente: false,
+        estado: 'pendiente'
+      }
+    ];
+
+    const shipmentList = document.getElementById('shipment-list');
+    const metricPendientes = document.getElementById('metric-pendientes');
+    const metricUrgentes = document.getElementById('metric-urgentes');
+    const metricListos = document.getElementById('metric-listos');
+
+    const formatDate = (iso) => {
+      const date = new Date(iso + 'T00:00:00');
+      return date.toLocaleDateString('es-CO', { day: '2-digit', month: 'short' });
+    };
+
+    const icon = (path) => `
+      <svg class="icon" viewBox="0 0 24 24" role="presentation" focusable="false">
+        ${path}
+      </svg>
+    `;
+
+    const actionsTemplate = (item) => `
+      <div class="shipment-actions">
+        <button class="icon-btn" data-action="enviado" data-id="${item.id}" title="Marcar como enviado" aria-label="Marcar como enviado">
+          ${icon('<path d="M5 13l4 4L19 7" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />')}
+        </button>
+        <button class="icon-btn" data-action="urgente" data-id="${item.id}" title="Marcar como urgente" aria-label="Marcar como urgente">
+          ${icon('<path d="M12 3l7 18H5z" fill="none" stroke-width="2" stroke-linejoin="round" />')}
+        </button>
+        <button class="icon-btn" data-action="eliminar" data-id="${item.id}" title="Eliminar envío" aria-label="Eliminar envío">
+          ${icon('<path d="M6 7h12M10 11v6M14 11v6" stroke-width="2" fill="none" /><rect x="9" y="4" width="6" height="2" rx="0.6" /><path d="M8 7h8l-.6 11H8.6z" fill="none" stroke-width="1.8" />')}
+        </button>
+      </div>
+    `;
+
+    const buildTags = (item) => {
+      const tags = [];
+      if (item.urgente && item.estado !== 'enviado') tags.push('<span class="tag tag--urgent">Urgente</span>');
+      if (item.estado === 'enviado') tags.push('<span class="tag tag--done">Enviado</span>');
+      return tags.join('');
+    };
+
+    const renderShipments = () => {
+      const ordered = [...shipments]
+        .filter((item) => item.estado !== 'eliminado')
+        .sort((a, b) => {
+          if (a.estado === 'enviado' && b.estado !== 'enviado') return 1;
+          if (a.estado !== 'enviado' && b.estado === 'enviado') return -1;
+          if (a.urgente !== b.urgente) return a.urgente ? -1 : 1;
+          return a.diasRestantes - b.diasRestantes;
+        });
+
+      shipmentList.innerHTML = ordered.map((item) => `
+        <li class="shipment-card ${item.urgente ? 'is-urgent' : ''} ${item.estado === 'enviado' ? 'is-done' : ''}">
+          <div class="shipment-head">
+            <div>
+              <p class="shipment-id">${item.id}</p>
+              <h3>${item.cliente}</h3>
+            </div>
+            <div class="tags">${buildTags(item)}</div>
+          </div>
+          <div class="shipment-body">
+            <div class="shipment-details">
+              <p class="detail-label">Artículos</p>
+              <p class="detail-value">${item.articulos.join(', ')}</p>
+              <p class="detail-label">Total</p>
+              <p class="detail-value">${item.total}</p>
+              <p class="detail-label">Comprado</p>
+              <p class="detail-value">${formatDate(item.comprado)}</p>
+            </div>
+            <div class="shipment-status">
+              <p class="status-label">Tiempo para despachar</p>
+              <div class="status-chip">${item.diasRestantes} días restantes</div>
+              <div class="actions-wrap ${item.estado === 'enviado' ? 'actions-wrap--disabled' : ''}">
+                ${actionsTemplate(item)}
+              </div>
+            </div>
+          </div>
+        </li>
+      `).join('');
+
+      const pendientes = ordered.filter((item) => item.estado === 'pendiente').length;
+      const urgentes = ordered.filter((item) => item.estado === 'pendiente' && item.urgente).length;
+      const listos = ordered.filter((item) => item.estado === 'enviado').length;
+
+      metricPendientes.textContent = pendientes;
+      metricUrgentes.textContent = urgentes;
+      metricListos.textContent = listos;
+    };
+
+    const updateItem = (id, updater) => {
+      const idx = shipments.findIndex((item) => item.id === id);
+      if (idx === -1) return;
+      shipments[idx] = { ...shipments[idx], ...updater(shipments[idx]) };
+      renderShipments();
+    };
+
+    shipmentList.addEventListener('click', (event) => {
+      const button = event.target.closest('button[data-action]');
+      if (!button) return;
+      const { action, id } = button.dataset;
+
+      if (action === 'enviado') {
+        updateItem(id, () => ({ estado: 'enviado', urgente: false }));
+      }
+      if (action === 'urgente') {
+        updateItem(id, (item) => ({ urgente: !item.urgente && item.estado !== 'enviado' }));
+      }
+      if (action === 'eliminar') {
+        updateItem(id, () => ({ estado: 'eliminado', urgente: false }));
+      }
+    });
+
+    renderShipments();
+  </script>
+</body>
+</html>
