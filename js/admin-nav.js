@@ -4,7 +4,7 @@
     { text: 'envíos', href: 'envios.html' },
     { text: 'usuarios', href: 'gestion_usuarios.html' },
     { text: 'Top favoritos', href: 'top_favoritos.html' },
-    { text: 'Inventario', href: 'admin.html#articulos' }
+    { text: 'Inventario', href: 'inventario.html' }
   ];
 
   const applyNav = () => {

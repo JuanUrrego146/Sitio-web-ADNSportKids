@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ADN Sport Kids — Inventario</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/Style.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/inventario.css">
+</head>
+<body class="admin-page">
+  <div data-include="adn-header"></div>
+
+  <main class="admin-main">
+    <section class="admin-hero">
+      <div class="adn-container admin-hero__inner">
+        <div class="admin-hero__copy">
+          <p class="admin-eyebrow">Panel de control</p>
+          <h1>Inventario de productos</h1>
+          <p class="admin-subtitle">Consulta, agrega y elimina artículos del catálogo manteniendo la misma estética cuadriculada del panel.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="inventory-layout adn-container">
+      <div class="inventory-card">
+        <header class="inventory-card__header">
+          <div>
+            <p class="admin-eyebrow">Listado actual</p>
+            <h2>Productos en inventario</h2>
+          </div>
+          <span class="badge" id="inventory-count">0</span>
+        </header>
+        <div class="inventory-list" id="inventory-list" aria-live="polite"></div>
+      </div>
+
+      <div class="inventory-card inventory-card--form">
+        <header class="inventory-card__header">
+          <div>
+            <p class="admin-eyebrow">Nuevo registro</p>
+            <h2>Agregar producto</h2>
+          </div>
+        </header>
+
+        <form id="inventory-form" class="inventory-form">
+          <div class="form-grid">
+            <label class="form-field">
+              <span>Categoría</span>
+              <input type="text" name="Categoria" required>
+            </label>
+            <label class="form-field">
+              <span>Sub categoría</span>
+              <input type="text" name="Sub_Categoria" required>
+            </label>
+            <label class="form-field">
+              <span>Nombre del producto</span>
+              <input type="text" name="Nombre" required>
+            </label>
+            <label class="form-field">
+              <span>Ruta de imagen principal</span>
+              <input type="text" name="imagen" placeholder="Imagenes/archivo.png" required>
+            </label>
+            <label class="form-field">
+              <span>Precio</span>
+              <input type="text" name="precio" placeholder="$0" required>
+            </label>
+            <label class="form-field">
+              <span>¿Tiene variación de color?</span>
+              <select name="color" required>
+                <option value="">Selecciona</option>
+                <option value="Si">Si</option>
+                <option value="No">No</option>
+              </select>
+            </label>
+            <label class="form-field">
+              <span>Tipo de tallaje</span>
+              <input type="text" name="tallaje" placeholder="Ropa / Calzado / No" required>
+            </label>
+            <label class="form-field">
+              <span>¿Permite número personalizado?</span>
+              <select name="pernumero" required>
+                <option value="">Selecciona</option>
+                <option value="si">Si</option>
+                <option value="No">No</option>
+              </select>
+            </label>
+            <label class="form-field">
+              <span>Imagen secundaria (opcional)</span>
+              <input type="text" name="imagen2" placeholder="Imagenes/archivo-secundario.png">
+            </label>
+          </div>
+
+          <button type="submit" class="admin-card__link inventory-submit">Agregar al inventario</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div data-include="adn-footer"></div>
+
+  <script src="js/header.js"></script>
+  <script src="js/footer.js"></script>
+  <script src="js/admin-nav.js"></script>
+  <script src="js/inventario.js"></script>
+</body>
+</html>
