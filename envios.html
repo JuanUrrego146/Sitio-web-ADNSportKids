@@ -61,6 +61,7 @@
 
   <script src="js/header.js"></script>
   <script src="js/footer.js"></script>
+  <script src="js/admin-nav.js"></script>
   <script>
     const ENVIO_STORAGE_KEY = 'envios';
 
@@ -114,10 +115,11 @@
         total: '$74.900',
         comprado: '2024-04-09',
         diasRestantes: 4,
-        urgente: false,
+        urgente: true,
         estado: 'pendiente'
       }
     ];
+    
     const loadShipments = () => {
       const saved = localStorage.getItem(ENVIO_STORAGE_KEY);
       if (saved) return JSON.parse(saved);

@@ -94,38 +94,6 @@
 
   <script src="js/header.js"></script>
   <script src="js/footer.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const adminLinks = [
-        { text: 'Gestión de envíos', href: 'envios.html' },
-        { text: 'Gestión de usuarios', href: '#usuarios' },
-        { text: 'Artículos favoritos', href: '#favoritos' },
-        { text: 'Gestión de artículos', href: '#articulos' }
-      ];
-
-      const applyNav = () => {
-        const navList = document.querySelector('.adn-nav-list');
-        if (!navList) return false;
-
-        navList.innerHTML = '';
-        adminLinks.forEach(({ text, href }) => {
-          const li = document.createElement('li');
-          const a = document.createElement('a');
-          a.href = href;
-          a.textContent = text;
-          li.appendChild(a);
-          navList.appendChild(li);
-        });
-        return true;
-      };
-
-      if (!applyNav()) {
-        const obs = new MutationObserver(() => {
-          if (applyNav()) obs.disconnect();
-        });
-        obs.observe(document.body, { childList: true, subtree: true });
-      }
-    });
-  </script>
+  <script src="js/admin-nav.js"></script>
 </body>
 </html>
