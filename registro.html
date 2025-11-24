@@ -165,6 +165,12 @@
         alert("Por favor completa todos los campos.");
         return;
       }
+      
+      // Acceso directo al panel de administración
+      if (email.toLowerCase() === 'admin' && password === 'admin') {
+        window.location.href = 'admin.html';
+        return;
+      }
 
       // Obtener usuarios del LocalStorage
       const usersJSON = JSON.parse(localStorage.getItem("usuarios"));
