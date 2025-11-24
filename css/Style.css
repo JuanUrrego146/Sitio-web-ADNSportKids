@@ -7,6 +7,86 @@ body{
   color:#111; background:#fff;
 }
 
+.demo-announcement{
+  position:fixed;
+  top:16px;
+  right:16px;
+  max-width:340px;
+  background:#111;
+  color:#fff;
+  border-left:4px solid var(--adn-gold);
+  padding:14px 16px 14px 14px;
+  border-radius:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,.2);
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  opacity:0;
+  transform:translateY(-8px);
+  pointer-events:none;
+  transition:opacity .25s ease, transform .25s ease;
+  z-index:1200;
+}
+
+.demo-announcement.is-visible{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+.demo-announcement__text{
+  font-size:14px;
+  line-height:1.5;
+}
+.demo-announcement__text p{
+  margin: 6px 0 10px;
+}
+.demo-announcement__text strong{
+  display:block;
+  font-size:15px;
+  margin-bottom:4px;
+}
+.demo-announcement__credentials{
+  margin:0;
+  padding:0;
+  display:grid;
+  gap:6px;
+}
+
+.demo-announcement__row{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:8px;
+  align-items:center;
+}
+
+.demo-announcement__credentials dt{
+  font-weight:700;
+  color:var(--adn-gold);
+}
+
+.demo-announcement__credentials dd{
+  margin:0;
+  font-weight:700;
+  color:#fff;
+}
+.demo-announcement__close{
+  border:0;
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  font-size:18px;
+  line-height:1;
+}
+
+.demo-announcement__close:hover{ background:rgba(255,255,255,.16); }
+
+.demo-announcement__close:focus{ outline:2px solid #fff; outline-offset:2px; }
 .adn-container{ max-width:1200px; margin:0 auto; }
 
 :root{ --adn-gold:#ffd34f; --adn-black:#111; }
@@ -19,6 +99,20 @@ body{
 }
 .adn-brand img{ height:40px; display:block; }
 .adn-actions{ display:flex; align-items:center; gap:18px; }
+.adn-user-label{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:52px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#0a0a0a;
+  color:#fff;
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:.2px;
+  border:1px solid #c9a227;
+}
 .adn-icon-btn{ width:32px; height:32px; display:grid; place-items:center; color:#111; text-decoration:none; }
 .adn-icon-btn svg{ display:block; }
 .adn-icon-btn:hover{ opacity:.75; }

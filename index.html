@@ -19,7 +19,27 @@
   <div data-include="adn-header"></div>
 
   <main>
-  
+
+  <div id="demo-announcement" class="demo-announcement" role="status" aria-live="polite">
+    <div class="demo-announcement__text">
+      <strong>Nota demostrativa</strong>
+      <p>
+        Esta es una página demostrativa. Su documentación es privada; para entrar en modo administrador y
+        explorarla, ingrese estas credenciales en el registro:
+      </p>
+      <dl class="demo-announcement__credentials">
+        <div class="demo-announcement__row">
+          <dt><strong>Correo</strong></dt>
+          <dd>admin</dd>
+        </div>
+        <div class="demo-announcement__row">
+          <dt><strong>Contraseña</strong></dt>
+          <dd>admin</dd>
+        </div>
+      </dl>
+    </div>
+    <button type="button" class="demo-announcement__close" aria-label="Cerrar aviso">&times;</button>
+  </div>
     
   <section class="adn-hero">
     <img class="adn-hero__bg" src="img/Background.jpg" alt="Estadio iluminado de noche">
@@ -52,5 +72,18 @@
 
 
   <script src="js/teams-slider.js" defer></script>
+  <script>
+    (() => {
+      const banner = document.getElementById('demo-announcement');
+      if (!banner) return;
+
+      const closeButton = banner.querySelector('.demo-announcement__close');
+      const hideBanner = () => banner.classList.remove('is-visible');
+
+      closeButton?.addEventListener('click', hideBanner);
+      requestAnimationFrame(() => banner.classList.add('is-visible'));
+      setTimeout(hideBanner, 15000);
+    })();
+  </script>
 </body>
 </html>
