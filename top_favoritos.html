@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Top de favoritos - ADN Sport Kids</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/Style.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/top-favoritos.css">
+</head>
+<body class="admin-page">
+  <div data-include="adn-header"></div>
+  <main class="admin-main">
+    <section class="admin-hero">
+      <div class="adn-container admin-hero__inner">
+        <div class="admin-hero__copy">
+          <p class="admin-eyebrow">Analítica</p>
+          <h1>Top de productos favoritos</h1>
+          <p class="admin-subtitle">Solo visible para administradores. Se actualiza con cada acción de favoritos de los clientes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="top-fav adn-container">
+      <div class="top-fav__header">
+        <div>
+          <p class="top-fav__eyebrow">Ranking</p>
+          <h2>Productos más guardados</h2>
+          <p class="top-fav__nota">Datos acumulados según las veces que cada usuario pulsa el corazón en el catálogo y en favoritos.</p>
+        </div>
+      </div>
+      <div id="top-fav-list" class="top-fav__grid"></div>
+    </section>
+  </main>
+  <div data-include="adn-footer"></div>
+  <script src="js/header.js"></script>
+  <script src="js/footer.js"></script>
+  <script src="js/admin-nav.js"></script>
+  <script src="js/favoritos-storage.js"></script>
+  <script src="js/top-favoritos.js"></script>
+</body>
+</html>

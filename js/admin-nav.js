@@ -3,7 +3,7 @@
     { text: 'Inicio', href: 'admin.html' },
     { text: 'envíos', href: 'envios.html' },
     { text: 'usuarios', href: 'gestion_usuarios.html' },
-    { text: 'Artículos favoritos', href: 'admin.html#favoritos' },
+    { text: 'Top favoritos', href: 'top_favoritos.html' },
     { text: 'Inventario', href: 'admin.html#articulos' }
   ];
 

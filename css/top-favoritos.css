@@ -1,0 +1,129 @@
+.top-fav{
+  max-width: 1100px;
+  margin: 32px auto 56px;
+  padding: 0 18px;
+}
+
+.top-fav__header{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.top-fav__eyebrow{
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: var(--admin-accent, #c9a227);
+  margin: 0 0 6px;
+}
+
+.top-fav__header h2{
+  font-size: clamp(26px, 4vw, 34px);
+  margin: 0 0 8px;
+}
+
+.top-fav__nota{
+  color: #3b3b3b;
+  margin: 0;
+  max-width: 720px;
+}
+
+.top-fav__grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.top-card{
+  border: 1px solid #1c1c1c;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--admin-dark, #0f0f0f);
+  color: #f5f5f5;
+  box-shadow: 0 16px 32px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.top-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 22px 40px rgba(0,0,0,0.22);
+}
+
+.top-card img{
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: #0a0a0a;
+}
+
+.top-card__body{
+  padding: 14px 16px 16px;
+  display: grid;
+  gap: 6px;
+}
+
+.top-card__body h3{
+  font-size: 18px;
+  margin: 0;
+}
+
+.top-card__body p{
+  margin: 0;
+}
+
+.top-card__score{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(201, 162, 39, 0.15);
+  color: var(--admin-accent, #c9a227);
+  width: fit-content;
+  font-weight: 700;
+}
+
+.top-card__score svg{
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.top-card__badge{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #c9a227;
+  color: #000;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.top-card__figure{
+  position: relative;
+  background: linear-gradient(120deg, rgba(201, 162, 39, 0.35), transparent 40%);
+}
+
+.top-card__empty{
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 22px;
+  border: 1px dashed #c9a227;
+  border-radius: 10px;
+  background: rgba(201, 162, 39, 0.08);
+  color: #111;
+}
+
+@media (max-width: 720px){
+  .top-fav__header{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

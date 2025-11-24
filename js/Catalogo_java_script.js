@@ -13,13 +13,8 @@ function iniciarCatalogo(){
 
   const catalogo = document.getElementById("catalogo");
 
-  const FAV_KEY = 'adn:favs';
-  const getFavs = () => {
-    try { return new Set(JSON.parse(localStorage.getItem(FAV_KEY) || '[]')); }
-    catch { return new Set(); }
-  };
-  const saveFavs = (set) => localStorage.setItem(FAV_KEY, JSON.stringify([...set]));
-  let favs = getFavs();
+    let favs = FavoritosStorage.getFavorites();
+  let favCounts = FavoritosStorage.getCounts();
 
   const norm = (s='') => s.toString().toLowerCase()
     .normalize('NFD').replace(/\p{Diacritic}/gu,'');
@@ -88,9 +83,13 @@ function iniciarCatalogo(){
       favBtn.addEventListener('click', (ev) => {
         ev.preventDefault();
         ev.stopPropagation();
-        if (favs.has(pid)) { favs.delete(pid); favBtn.classList.remove('activo'); }
-        else { favs.add(pid); favBtn.classList.add('activo'); }
-        saveFavs(favs);
+        if (favs.has(pid)) {
+          FavoritosStorage.recordRemove(pid, favs, favCounts);
+          favBtn.classList.remove('activo');
+        } else {
+          FavoritosStorage.recordAdd(pid, favs, favCounts);
+          favBtn.classList.add('activo');
+        }
       });
 
       divImagen.appendChild(favBtn);
